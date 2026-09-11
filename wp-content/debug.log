@@ -1,0 +1,26 @@
+[10-Sep-2026 23:14:27 UTC] PHP Warning:  Use of undefined constant FILTER_VALIDATE_BOOL - assumed 'FILTER_VALIDATE_BOOL' (this will throw an Error in a future version of PHP) in C:\xampp\htdocs\tienda\wp-content\plugins\woocommerce\src\Admin\WCAdminHelper.php on line 185
+[10-Sep-2026 23:14:27 UTC] PHP Warning:  filter_var() expects parameter 2 to be int, string given in C:\xampp\htdocs\tienda\wp-content\plugins\woocommerce\src\Admin\WCAdminHelper.php on line 185
+[10-Sep-2026 23:14:47 UTC] Automatic updates starting...
+[10-Sep-2026 23:14:47 UTC]   Automatic plugin updates starting...
+[10-Sep-2026 23:14:47 UTC]   Automatic plugin updates complete.
+[10-Sep-2026 23:14:48 UTC] Automatic updates complete.
+[10-Sep-2026 23:15:30 UTC] PHP Warning:  Use of undefined constant FILTER_VALIDATE_BOOL - assumed 'FILTER_VALIDATE_BOOL' (this will throw an Error in a future version of PHP) in C:\xampp\htdocs\tienda\wp-content\plugins\woocommerce\src\Admin\WCAdminHelper.php on line 185
+[10-Sep-2026 23:15:30 UTC] PHP Warning:  filter_var() expects parameter 2 to be int, string given in C:\xampp\htdocs\tienda\wp-content\plugins\woocommerce\src\Admin\WCAdminHelper.php on line 185
+[10-Sep-2026 23:17:18 UTC] PHP Warning:  Use of undefined constant FILTER_VALIDATE_BOOL - assumed 'FILTER_VALIDATE_BOOL' (this will throw an Error in a future version of PHP) in C:\xampp\htdocs\tienda\wp-content\plugins\woocommerce\src\Admin\WCAdminHelper.php on line 185
+[10-Sep-2026 23:17:18 UTC] PHP Warning:  filter_var() expects parameter 2 to be int, string given in C:\xampp\htdocs\tienda\wp-content\plugins\woocommerce\src\Admin\WCAdminHelper.php on line 185
+[10-Sep-2026 23:18:44 UTC] PHP Warning:  Use of undefined constant FILTER_VALIDATE_BOOL - assumed 'FILTER_VALIDATE_BOOL' (this will throw an Error in a future version of PHP) in C:\xampp\htdocs\tienda\wp-content\plugins\woocommerce\src\Admin\WCAdminHelper.php on line 185
+[10-Sep-2026 23:18:44 UTC] PHP Warning:  filter_var() expects parameter 2 to be int, string given in C:\xampp\htdocs\tienda\wp-content\plugins\woocommerce\src\Admin\WCAdminHelper.php on line 185
+[10-Sep-2026 23:37:23 UTC] PHP Warning:  Use of undefined constant FILTER_VALIDATE_BOOL - assumed 'FILTER_VALIDATE_BOOL' (this will throw an Error in a future version of PHP) in C:\xampp\htdocs\tienda\wp-content\plugins\woocommerce\src\Admin\WCAdminHelper.php on line 185
+[10-Sep-2026 23:37:23 UTC] PHP Warning:  filter_var() expects parameter 2 to be int, string given in C:\xampp\htdocs\tienda\wp-content\plugins\woocommerce\src\Admin\WCAdminHelper.php on line 185
+[10-Sep-2026 23:37:40 UTC] PHP Warning:  Use of undefined constant FILTER_VALIDATE_BOOL - assumed 'FILTER_VALIDATE_BOOL' (this will throw an Error in a future version of PHP) in C:\xampp\htdocs\tienda\wp-content\plugins\woocommerce\src\Admin\WCAdminHelper.php on line 185
+[10-Sep-2026 23:37:40 UTC] PHP Warning:  filter_var() expects parameter 2 to be int, string given in C:\xampp\htdocs\tienda\wp-content\plugins\woocommerce\src\Admin\WCAdminHelper.php on line 185
+[10-Sep-2026 23:38:20 UTC] PHP Warning:  Use of undefined constant FILTER_VALIDATE_BOOL - assumed 'FILTER_VALIDATE_BOOL' (this will throw an Error in a future version of PHP) in C:\xampp\htdocs\tienda\wp-content\plugins\woocommerce\src\Admin\WCAdminHelper.php on line 185
+[10-Sep-2026 23:38:20 UTC] PHP Warning:  filter_var() expects parameter 2 to be int, string given in C:\xampp\htdocs\tienda\wp-content\plugins\woocommerce\src\Admin\WCAdminHelper.php on line 185
+[10-Sep-2026 23:40:48 UTC] PHP Warning:  Use of undefined constant FILTER_VALIDATE_BOOL - assumed 'FILTER_VALIDATE_BOOL' (this will throw an Error in a future version of PHP) in C:\xampp\htdocs\tienda\wp-content\plugins\woocommerce\src\Admin\WCAdminHelper.php on line 185
+[10-Sep-2026 23:40:48 UTC] PHP Warning:  filter_var() expects parameter 2 to be int, string given in C:\xampp\htdocs\tienda\wp-content\plugins\woocommerce\src\Admin\WCAdminHelper.php on line 185
+[11-Sep-2026 00:06:50 UTC] PHP Warning:  Use of undefined constant FILTER_VALIDATE_BOOL - assumed 'FILTER_VALIDATE_BOOL' (this will throw an Error in a future version of PHP) in C:\xampp\htdocs\tienda\wp-content\plugins\woocommerce\src\Admin\WCAdminHelper.php on line 185
+[11-Sep-2026 00:06:50 UTC] PHP Warning:  filter_var() expects parameter 2 to be int, string given in C:\xampp\htdocs\tienda\wp-content\plugins\woocommerce\src\Admin\WCAdminHelper.php on line 185
+[11-Sep-2026 02:07:28 UTC] Automatic updates starting...
+[11-Sep-2026 02:07:28 UTC]   Automatic plugin updates starting...
+[11-Sep-2026 02:07:28 UTC]   Automatic plugin updates complete.
+[11-Sep-2026 02:07:28 UTC] Automatic updates complete.
