@@ -1,0 +1,266 @@
+/*!
+Theme Name: Shoppable Style
+Theme URI: https://bosathemes.com/shoppable-style
+Author: Bosa Themes
+Author URI: https://bosathemes.com
+Description:  Shoppable Style is beautiful multipurpose ecommerce theme. Shoppable Style is beautiful, fast, lightweight, responsive, extremely customizable, multipurpose ecommerce theme that you can use as a foundation to build versatile sites such as marketplace, vendor, ecommerce, fashion, style product, fashion store, shop, clothes, clothing, and preferably ideal for any type of sites. Shoppable Style works perfectly with Gutenberg and the most popular page builder Elementor that can easily drag-and-drop your ideas from the interface. Shoppable Style is built with SEO, speed, and usability in mind with the multiple Header & Footer layouts, predesigned starter sites includes awesome Home & Inner Pages that is incredibly customizable and powerful enough to take a stand among the crowd. Shoppable Style is compatible with all major plugins like WooCommerce, Yoast, Contact form 7, Mailchimp for WordPress, bbPress, etc. Looking for a multipurpose ecommerce theme? Look no further! Browse the demos to see that it's the only theme you will ever need: https://demo.bosathemes.com/shoppable/style
+Version: 1.0.2
+Requires PHP: 5.6
+Tested up to: 6.9
+License: GNU General Public License v3 or later
+License URI: http://www.gnu.org/licenses/gpl-3.0.html
+Template: hello-shoppable
+Text Domain: shoppable-style
+Tags: blog, portfolio, news, grid-Layout, one-column, two-columns, three-columns, flexible-header, left-sidebar, right-sidebar, custom-background, custom-colors, custom-logo, custom-menu, featured-images, footer-widgets, full-width-template, post-formats, rtl-language-support, theme-options, sticky-post, threaded-comments, translation-ready, block-styles, wide-blocks
+
+Shoppable Style WordPress Theme, Copyright 2026 Bosa Themes
+Shoppable Style is distributed under the terms of the GNU General Public License v3
+
+Shoppable Style is based on Underscores https://underscores.me/, (C) 2012-2017 Automattic, Inc.
+Underscores is distributed under the terms of the GNU GPL v2 or later.
+*/
+
+.screen-reader-text {
+  border: 0;
+  clip: rect(1px, 1px, 1px, 1px);
+  clip-path: inset(50%);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute !important;
+  width: 1px;
+  word-wrap: normal !important;
+}
+.entry-content a {
+  text-decoration: underline;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: #111111;
+  font-family: 'Jost', serif;
+  font-weight: 500;
+}
+.entry-content h1 a,
+.entry-content h2 a,
+.entry-content h3 a,
+.entry-content h4 a,
+.entry-content h5 a,
+.entry-content h6 a {
+  text-decoration: underline;
+}
+.entry-content p a,
+.comment-content p a,
+.entry-content li a,
+.comment-content li a,
+.widget p a,
+.comments-area .comment-list .comment-content a {
+  color: #2e92ff;
+}
+.entry-content p a:hover,
+.entry-content p a:focus,
+.comment-content p a:hover,
+.comment-content p a:focus,
+.entry-content li a:hover,
+.entry-content li a:focus,
+.comment-content li a:hover,
+.comment-content li a:focus,
+.widget p a:hover,
+.widget p a:focus,
+.comments-area .comment-list .comment-content a:hover,
+.comments-area .comment-list .comment-content a:focus {
+  color: #086abd;
+}
+.slide-item .entry-content h3 a,
+.list-post .entry-content h3 a,
+.grid-post .entry-content h3 a,
+.single-post .entry-content h3 a {
+  text-decoration: none;
+}
+.wp-block-quote {
+  padding: 30px 30px 30px 50px;
+  margin: 30px 0 30px 30px;
+}
+
+/*memorable moments*/
+.section-memorable-moment-area {
+  padding-bottom: 70px;
+}
+.section-memorable-moment-area .moment-wrapper {
+  position: relative;
+  margin-bottom: 15px;
+  border-radius: 20px;
+  min-height: 300px;
+  overflow: hidden;
+}
+.section-memorable-moment-area .moment-wrapper:before {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.20);
+}
+.section-memorable-moment-area .moment-wrapper .featured-image {
+  overflow: hidden;
+  max-height: 400px;
+  text-align: center;
+  transition: all 0.4s;
+}
+.section-memorable-moment-area .moment-wrapper:hover .featured-image {
+ transform: scale(1.1);
+}
+.section-memorable-moment-area .moment-wrapper .moment-iconbox {
+  position: absolute;
+  z-index: 1;
+  top: 50%;
+  right: 60px;
+  padding: 35px;
+  border-radius: 10px;
+  background-color: #fff;
+  transform: translateY(-50%);
+  width: 400px;
+}
+.section-memorable-moment-area .moment-wrapper:nth-child(even) .moment-iconbox {
+  left: 60px;
+  right: 0;
+}
+.section-memorable-moment-area .moment-wrapper .moment-iconbox .entry-title {
+  text-decoration: none;
+  margin-bottom: 0;
+}
+.section-memorable-moment-area .moment-wrapper .moment-iconbox .entry-text {
+  margin: 15px 0 10px;
+}
+@media screen and (max-width: 768px) {
+  .section-memorable-moment-area .moment-wrapper .moment-iconbox {
+    width: 320px;
+  }
+}
+@media screen and (max-width: 575px) {
+  .section-memorable-moment-area .moment-wrapper {
+    margin-bottom: 50px;
+  }
+  .section-memorable-moment-area .moment-wrapper .moment-iconbox {
+    position: initial;
+    width: auto;
+    transform: none;
+    background-color: #ececec;
+    border-radius: initial;
+    padding: 30px 20px;
+  }
+  .section-memorable-moment-area .moment-wrapper .featured-image {
+    max-height: auto;
+  }
+  .section-memorable-moment-area .moment-wrapper:before {
+    display: none;
+  }
+}
+
+/*comments css*/
+.section-comment-area {
+  padding-bottom: 70px;
+}
+.section-comment-area .row {
+  row-gap: 70px;
+}
+.section-comment-area .comment-item {
+  position: relative;
+  padding-left: 30px;
+  padding-top: 30px;
+}
+.section-comment-area .entry-content {
+  border-radius: 10px;
+  box-shadow: 0px 0px 25px 0px rgba(0, 0, 0, 0.08);
+  padding: 50px;
+}
+.comment-item .featured-image {
+  border-radius: 100%;
+  height: 80px;
+  overflow: hidden;
+  width: 80px;
+  position: absolute;
+  top: 00px;
+  left: 00px;
+  z-index: 1;
+  transition: all 0.4s;
+}
+.comment-item:hover .featured-image {
+   transform: scale(1.1);
+}
+.comment-item .entry-content a {
+  text-decoration: none;
+}
+.section-comment-area .entry-text p {
+  margin-bottom: 0;
+}
+.section-comment-area .comment-quote-icon {
+  font-size: 80px;
+  opacity: 0.1;
+  line-height: 1;
+  position: absolute;
+  bottom: 10px;
+  right: 20px;
+}
+@media screen and (max-width: 467px) {
+  .section-comment-area .entry-content {
+    padding: 60px 20px 30px;
+  }
+  .section-comment-area .comment-item {
+    padding-left: 0px;
+    padding-top: 0px;
+  }
+  .comment-item .featured-image {
+    left: 50%;
+    top: 30px;
+    transform: translatex(-50%);
+  }
+}
+
+/* client css*/
+.section-client-area {
+  padding-bottom: 70px;
+}
+.section-client-area .client-item {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 25px;
+  align-items: center;
+  justify-content: center;
+}
+.section-client-area .client-item .featured-image {
+  overflow: hidden;
+  border-radius: 10px;
+  flex-basis: 31%;
+  flex-grow: 1;
+  transition: all 0.4s;
+  position: relative;
+}
+.section-client-area .client-item .featured-image img{
+  border-radius: inherit;
+}
+.section-client-area .client-item:hover> :not(:hover) {
+  filter: blur(5px);
+}
+.section-client-area .client-item:hover .featured-image:not(:hover):before {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.10);
+  transition: all 0.4s;
+}
+@media screen and (max-width: 467px) {
+  .section-client-area .client-item .featured-image {
+    flex-basis: 100%;
+  }
+}

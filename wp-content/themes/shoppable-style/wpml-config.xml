@@ -1,0 +1,8 @@
+<wpml-config>
+    <admin-texts>
+        <key name="theme_mods_shoppable-style">
+            <key name="shoppable_style_memorable_moments_title" />
+            <key name="shoppable_style_clients_tagline" />
+        </key>
+    </admin-texts>
+</wpml-config>
