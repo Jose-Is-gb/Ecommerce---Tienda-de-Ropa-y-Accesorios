@@ -1,0 +1,28 @@
+/*
+Theme Name: Scandi Fashion Nook
+Theme URI: https://thethemenook.com/free-themes/scandi-fashion-nook
+Author: The Theme Nook
+Author URI: https://thethemenook.com/
+Description: Scandi Fashion Nook is a WooCommerce fashion store and WordPress block theme for online clothing stores, fashion boutiques, apparel shops, and lifestyle brands building a modern eCommerce store featuring slow, Scandinavian aesthetic. Built for slow fashion brands, knitwear stores, loungewear shops, and capsule wardrobe collections, Scandi Fashion Nook brings Nordic minimalism to your online store — clean layouts, warm neutrals, and editorial typography designed to let your products shine. Perfect for boutique fashion brands, sustainable clothing stores, and style-driven WooCommerce shops inspired by Scandinavian design. Scandi Fashion Nook requires the Fashion Nook parent theme and inherits its full site editing support, block theme framework, and WordPress Site Editor compatibility — no page builder required.
+Requires at least: 6.9
+Tested up to: 7.0
+Requires PHP: 7.0
+Version: 1.0.3
+License: GNU General Public License v2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Template: fashion-nook
+Text Domain: scandi-fashion-nook
+Tags: one-column, two-columns, three-columns, grid-layout, custom-colors, custom-menu, custom-logo, editor-style, featured-images, block-patterns, sticky-post, threaded-comments, translation-ready, wide-blocks, block-styles, style-variations, blog, e-commerce, full-site-editing
+*/
+
+body {
+    -webkit-font-smoothing: antialiased;
+}
+
+/*
+ * Link styles
+ */
+a {
+	text-decoration-thickness: 1px !important;
+	text-underline-offset: .2em;
+}

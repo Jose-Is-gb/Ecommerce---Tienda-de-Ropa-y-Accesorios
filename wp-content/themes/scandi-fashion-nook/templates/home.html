@@ -1,0 +1,48 @@
+<!-- wp:template-part {"slug":"hero-header"} /-->
+
+<!-- wp:group {"tagName":"main","layout":{"type":"constrained"}} -->
+<main class="wp-block-group">
+
+    <!-- wp:pattern {"slug":"scandi-fashion-nook/about-us-hero"} /-->
+    
+    <!-- wp:separator {"align":"wide"} -->
+    <hr class="wp-block-separator alignwide has-alpha-channel-opacity"/>
+    <!-- /wp:separator -->
+
+    <!-- wp:group {"metadata":{"name":"Dynamic Product Collection (grid of 3)"},"align":"full","style":{"spacing":{"padding":{"bottom":"var:preset|spacing|30","top":"var:preset|spacing|20"}}},"layout":{"type":"constrained"}} -->
+    <div class="wp-block-group alignfull" style="padding-top:var(--wp--preset--spacing--20);padding-bottom:var(--wp--preset--spacing--30)"><!-- wp:woocommerce/product-collection {"queryId":0,"query":{"perPage":3,"pages":1,"offset":0,"postType":"product","order":"desc","orderBy":"date","search":"","exclude":[],"inherit":false,"taxQuery":[],"isProductCollectionBlock":true,"featured":false,"woocommerceOnSale":false,"woocommerceStockStatus":["instock","outofstock","onbackorder"],"woocommerceAttributes":[],"woocommerceHandPickedProducts":[],"timeFrame":{"operator":"in","value":"-7 days"},"filterable":false,"relatedBy":{"categories":true,"tags":true}},"tagName":"div","displayLayout":{"type":"flex","columns":3,"shrinkColumns":true},"dimensions":{"widthType":"fill"},"collection":"woocommerce/product-collection/new-arrivals","hideControls":["inherit","order","filterable"],"queryContextIncludes":["collection"],"__privatePreviewState":{"isPreview":false,"previewMessage":"Actual products will vary depending on the page being viewed."},"align":"wide"} -->
+    <div class="wp-block-woocommerce-product-collection alignwide"><!-- wp:heading {"style":{"spacing":{"margin":{"bottom":"1rem"}}},"fontSize":"large"} -->
+    <h2 class="wp-block-heading has-large-font-size" style="margin-bottom:1rem">New arrivals</h2>
+    <!-- /wp:heading -->
+
+    <!-- wp:woocommerce/product-template -->
+    <!-- wp:woocommerce/product-image {"showSaleBadge":false,"isDescendentOfQueryLoop":true} -->
+    <!-- wp:woocommerce/product-sale-badge {"align":"right"} /-->
+    <!-- /wp:woocommerce/product-image -->
+
+    <!-- wp:post-title {"textAlign":"center","isLink":true,"style":{"spacing":{"margin":{"bottom":"0.75rem","top":"0"}},"typography":{"lineHeight":"1.4","fontSize":"24px"}},"__woocommerceNamespace":"woocommerce/product-collection/product-title"} /-->
+
+    <!-- wp:woocommerce/product-price {"isDescendentOfQueryLoop":true,"textAlign":"center","fontSize":"small"} /-->
+    <!-- /wp:woocommerce/product-template --></div>
+    <!-- /wp:woocommerce/product-collection --></div>
+    <!-- /wp:group -->
+
+    <!-- wp:pattern {"slug":"scandi-fashion-nook/featured-category-hero"} /-->
+
+    <!-- wp:pattern {"slug":"scandi-fashion-nook/featured-collections-grid"} /-->
+
+    <!-- wp:pattern {"slug":"scandi-fashion-nook/featured-content-img-right"} /-->
+
+    <!-- wp:pattern {"slug":"fashion-nook/customer-reviews-static"} /-->
+
+    <!-- wp:separator {"align":"full"} -->
+    <hr class="wp-block-separator alignfull has-alpha-channel-opacity"/>
+    <!-- /wp:separator -->
+
+    <!-- wp:pattern {"slug":"scandi-fashion-nook/store-policies"} /-->
+
+
+</main>
+<!-- /wp:group -->
+
+<!-- wp:template-part {"slug":"footer"} /-->

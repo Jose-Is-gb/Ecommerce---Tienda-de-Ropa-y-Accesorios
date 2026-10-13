@@ -1,0 +1,76 @@
+{
+  "version": 3,
+  "settings": {
+    "layout": {
+      "contentSize": "1200px",
+      "wideSize": "1440px"
+    },
+    "color": {
+      "palette": [
+        {
+          "slug": "theme-1",
+          "name": "Marfil",
+          "color": "#f4f3ef"
+        },
+        {
+          "slug": "theme-2",
+          "name": "Piedra",
+          "color": "#e7e9e0"
+        },
+        {
+          "slug": "theme-3",
+          "name": "Salvia",
+          "color": "#c8d4af"
+        },
+        {
+          "slug": "theme-4",
+          "name": "Bosque",
+          "color": "#18241f"
+        },
+        {
+          "slug": "theme-5",
+          "name": "Tinta",
+          "color": "#111614"
+        }
+      ]
+    },
+    "typography": {
+      "fontFamilies": [
+        {
+          "slug": "lunaris-sans",
+          "name": "LUNARIS Sans",
+          "fontFamily": "Arial, Helvetica, sans-serif"
+        }
+      ]
+    }
+  },
+  "styles": {
+    "color": {
+      "background": "#f4f3ef",
+      "text": "#111614"
+    },
+    "typography": {
+      "fontFamily": "Arial, Helvetica, sans-serif",
+      "fontStyle": "normal",
+      "fontWeight": "400"
+    },
+    "elements": {
+      "heading": {
+        "typography": {
+          "fontFamily": "Arial, Helvetica, sans-serif",
+          "fontStyle": "normal",
+          "fontWeight": "400"
+        }
+      },
+      "button": {
+        "color": {
+          "background": "#18241f",
+          "text": "#f4f3ef"
+        },
+        "border": {
+          "radius": "0px"
+        }
+      }
+    }
+  }
+}
