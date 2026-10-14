@@ -22,10 +22,55 @@ $shop = function_exists("wc_get_page_permalink") ? wc_get_page_permalink("shop")
 <a class="lunaris-category" href="#esenciales"><img src="<?php echo esc_url($base.'men.webp'); ?>" alt="Colección de hoodies para hombre en tonos oscuros" width="1920" height="500" loading="lazy"><div class="lunaris-category-label"><strong>Hombre</strong><span>Explorar esenciales ↗</span></div></a>
 <a class="lunaris-category" href="#esenciales"><img src="<?php echo esc_url($base.'women.webp'); ?>" alt="Blusas para mujer en tonos vino, negro y gris" width="1920" height="500" loading="lazy"><div class="lunaris-category-label"><strong>Mujer</strong><span>Explorar esenciales ↗</span></div></a>
 </div></section>
-<section class="lunaris-section lunaris-products-section" id="esenciales" aria-labelledby="esenciales-title"><div class="lunaris-section-head"><div><p class="lunaris-eyebrow">02 / Selección LUNARIS</p><h2 id="esenciales-title">Menos ruido. Más personalidad.</h2></div><span class="lunaris-text-link">El poder de lo esencial</span></div><div class="lunaris-products">
-<?php foreach ([['tshirt','Ropa','Camiseta negra','La base de cualquier look.'],['hoodie','Ropa','Hoodie negro','Comodidad con carácter.'],['bag','Accesorios','Bolso cruzado','Tu día, a tu ritmo.'],['bracelet','Accesorios','Pulsera de cuero','Un detalle que define.']] as $item) : ?>
+<section class="lunaris-section lunaris-products-section" id="esenciales" aria-labelledby="esenciales-title"><div class="lunaris-section-head"><div><p class="lunaris-eyebrow">02 / Selección LUNARIS</p><h2 id="esenciales-title">Menos ruido. Más personalidad.</h2></div><a class="lunaris-text-link" href="<?php echo esc_url($shop); ?>">Ver catálogo completo (<?php echo (function_exists('wc_get_products') ? count(wc_get_products(['status' => 'publish', 'limit' => -1])) : 0); ?>) ↗</a></div><div class="lunaris-products">
+<?php
+$wc_products = function_exists('wc_get_products') ? wc_get_products([
+    'status' => 'publish',
+    'limit' => -1,
+    'orderby' => 'date',
+    'order' => 'DESC'
+]) : [];
+
+if (!empty($wc_products)) :
+    foreach ($wc_products as $product) :
+        $pid = $product->get_id();
+        $permalink = esc_url($product->get_permalink());
+        $title = esc_html($product->get_name());
+        $price_html = $product->get_price_html();
+        $image_id = $product->get_image_id();
+        $image_url = $image_id ? wp_get_attachment_image_url($image_id, 'large') : esc_url($base . 'accessories.webp');
+        
+        $terms = get_the_terms($pid, 'product_cat');
+        $cat_name = (!empty($terms) && !is_wp_error($terms)) ? esc_html($terms[0]->name) : 'LUNARIS';
+        
+        $short_desc = $product->get_short_description();
+        if (empty($short_desc)) {
+            $short_desc = wp_trim_words($product->get_description(), 8);
+        }
+        $short_desc = esc_html(wp_strip_all_tags($short_desc));
+?>
+<article class="lunaris-product">
+    <a href="<?php echo $permalink; ?>" style="text-decoration:none; color:inherit; display:block;">
+        <div class="lunaris-product-image">
+            <img src="<?php echo esc_url($image_url); ?>" alt="<?php echo esc_attr($title); ?>" width="1200" height="1600" loading="lazy">
+        </div>
+        <small><?php echo $cat_name; ?></small>
+        <h3><?php echo $title; ?></h3>
+        <p><?php echo $short_desc; ?></p>
+        <div class="lunaris-product-price">
+            <?php echo $price_html; ?>
+        </div>
+    </a>
+</article>
+<?php 
+    endforeach;
+else :
+    foreach ([['tshirt','Ropa','Camiseta negra','La base de cualquier look.'],['hoodie','Ropa','Hoodie negro','Comodidad con carácter.'],['bag','Accesorios','Bolso cruzado','Tu día, a tu ritmo.'],['bracelet','Accesorios','Pulsera de cuero','Un detalle que define.']] as $item) : ?>
 <article class="lunaris-product"><div class="lunaris-product-image"><img src="<?php echo esc_url($base.$item[0].'.webp'); ?>" alt="<?php echo esc_attr($item[2]); ?>" width="1200" height="1600" loading="lazy"></div><small><?php echo esc_html($item[1]); ?></small><h3><?php echo esc_html($item[2]); ?></h3><p><?php echo esc_html($item[3]); ?></p></article>
-<?php endforeach; ?>
+<?php 
+    endforeach;
+endif;
+?>
 </div></section>
 <section class="lunaris-feature" id="accesorios" aria-labelledby="accesorios-title"><img class="lunaris-feature-image" src="<?php echo esc_url($base.'accessories.webp'); ?>" alt="Accesorios negros LUNARIS: cinturón, pulsera y detalles de cuero" width="1920" height="700" loading="lazy"><div class="lunaris-feature-copy"><p class="lunaris-eyebrow">03 / El toque final</p><h2 id="accesorios-title">Los detalles<br>cambian todo.</h2><p>Texturas, líneas limpias y tonos que combinan contigo. Completa tu estilo con accesorios que tienen su propia voz.</p><a class="lunaris-button" href="#esenciales">Descubrir accesorios <span aria-hidden="true">↗</span></a></div></section>
 <section class="lunaris-section lunaris-story" id="lunaris" aria-labelledby="story-title"><div><p class="lunaris-eyebrow">El universo LUNARIS</p><h2 id="story-title">Vestir también es expresarte.</h2></div><p>Nos inspira la ciudad cuando baja el ruido: sus texturas, su energía y la libertad de ir a tu manera. LUNARIS reúne prendas versátiles, tonos profundos y accesorios con carácter para construir un estilo que se sienta tuyo.</p></section>
