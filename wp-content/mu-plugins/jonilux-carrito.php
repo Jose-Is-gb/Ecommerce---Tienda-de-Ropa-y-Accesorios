@@ -6,7 +6,7 @@
 
 defined('ABSPATH') || exit;
 
-const JONILUX_ENVIO_GRATIS = 99; // Mismo monto mínimo que las zonas de envío
+const JONILUX_ENVIO_GRATIS = 150; // Mismo monto mínimo que las zonas de envío de WooCommerce
 
 // Si el envío gratis está disponible, ocultar el envío pagado (se mantiene el recojo en tienda)
 add_filter('woocommerce_package_rates', function ($rates) {

@@ -10,3 +10,169 @@ html{scroll-behavior:smooth;scroll-padding-top:100px}body{background:var(--lunar
 @media(min-width:1000px){.lunaris-products-section{padding-top:0}}
 @media(max-width:780px){.lunaris-header{padding:20px!important}.lunaris-header-inner{gap:15px}.lunaris-logo{font-size:22px!important}.lunaris-header .wp-block-navigation{margin-left:auto}.lunaris-header .wp-block-navigation__responsive-container.is-menu-open{background:#f4f3ef;color:#111614;padding:30px}.lunaris-header .wp-block-navigation__responsive-container.is-menu-open .wp-block-navigation__container{gap:25px}.lunaris-hero{min-height:560px;height:75svh}.lunaris-hero>img{object-position:60% center}.lunaris-hero:after{background:linear-gradient(90deg,#06100cd9,#06100c30)}.lunaris-hero-copy{padding:45px 25px}.lunaris-hero h1{font-size:62px}.lunaris-strip{gap:25px;font-size:8px;padding:18px 10px}.lunaris-strip span:last-child{display:none}.lunaris-section{padding:55px 24px}.lunaris-section-head{align-items:start;flex-direction:column;gap:18px}.lunaris-categories{gap:15px}.lunaris-category{height:280px}.lunaris-category-label{left:18px;right:18px;bottom:20px}.lunaris-category-label strong{font-size:24px}.lunaris-category-label span{font-size:0}.lunaris-category-label span:after{content:'â†—';font-size:20px}.lunaris-products{grid-template-columns:repeat(2,1fr);gap:25px 15px}.lunaris-feature{grid-template-columns:1fr}.lunaris-feature-image{min-height:240px;max-height:300px}.lunaris-feature-copy{padding:40px 24px}.lunaris-story{grid-template-columns:1fr;gap:22px}.lunaris-footer-top{flex-direction:column}.lunaris-footer nav{flex-wrap:wrap;gap:22px}.lunaris-footer-bottom{gap:25px;line-height:1.7}.lunaris-hero-bottom{left:25px;right:25px;font-size:8px}.lunaris-note{font-size:8px;letter-spacing:.12em}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{transition:none!important}}
+
+/* EXTENDED FOOTER STYLES */
+.lunaris-footer-extended{background:#111a16;color:#d5dcd0;padding:60px clamp(20px,5vw,80px) 30px;border-top:1px solid #203027}
+.lunaris-footer-container{max-width:1440px;margin:auto}
+.lunaris-footer-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1.2fr;gap:40px;margin-bottom:45px}
+.lunaris-footer-logo-ext{font-size:30px;letter-spacing:.16em;color:#fff;text-decoration:none;font-weight:600;display:inline-block;margin-bottom:12px}
+.lunaris-footer-tagline{font-size:13px;color:#aeb9ac;line-height:1.6;margin-bottom:18px;max-width:320px}
+.lunaris-company-info{font-size:12px;color:#8e998c;line-height:1.5;margin-bottom:20px}
+.lunaris-company-info strong{color:#e0e8dc}
+.lunaris-social-links{display:flex;gap:15px;align-items:center}
+.lunaris-social-links a{display:inline-flex;align-items:center;gap:6px;color:#c8d4af;text-decoration:none;font-size:12px;transition:color .2s}
+.lunaris-social-links a:hover{color:#fff}
+.lunaris-footer-heading{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#fff;margin-bottom:20px;font-weight:600}
+.lunaris-footer-list{list-style:none;padding:0;margin:0}
+.lunaris-footer-list li{margin-bottom:12px;font-size:13px;line-height:1.5;color:#b4beb2}
+.lunaris-footer-list a{color:#b4beb2;text-decoration:none;transition:color .2s}
+.lunaris-footer-list a:hover{color:#c8d4af;text-decoration:underline}
+.lunaris-reclamaciones-box{margin-top:20px;padding:12px 14px;background:#182520;border:1px solid #293d33;border-radius:8px;transition:border-color .2s}
+.lunaris-reclamaciones-box:hover{border-color:#c8d4af}
+.lunaris-reclamaciones-link{display:flex;align-items:center;gap:12px;text-decoration:none;color:#fff}
+.lunaris-reclamaciones-icon{flex-shrink:0}
+.lunaris-reclamaciones-text strong{display:block;font-size:11px;letter-spacing:.1em;color:#f1c40f}
+.lunaris-reclamaciones-text small{font-size:10px;color:#9cb0a1}
+
+/* PAYMENTS BAR */
+.lunaris-footer-payments{border-top:1px solid #1f2e26;border-bottom:1px solid #1f2e26;padding:22px 0;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:15px;margin-bottom:25px}
+.lunaris-payments-label{display:flex;align-items:center;gap:10px;font-size:12px;letter-spacing:.08em;color:#c8d4af}
+.lunaris-payment-badges{display:flex;flex-wrap:wrap;gap:8px}
+.pay-badge{background:#18241f;border:1px solid #2a3c33;color:#e8eee4;padding:6px 12px;font-size:11px;font-weight:700;letter-spacing:.08em;border-radius:4px;display:inline-block}
+.pay-badge.yape{background:#742284;border-color:#8a2fa0;color:#fff}
+.pay-badge.plin{background:#00a3e0;border-color:#00b8fc;color:#fff}
+.pay-badge.bcp{background:#ff7800;border-color:#ff8c24;color:#fff}
+.pay-badge.bbva{background:#004481;border-color:#0055a4;color:#fff}
+.pay-badge.cod{background:#23382c;border-color:#385846;color:#c8d4af}
+
+/* BOTTOM BAR */
+.lunaris-footer-bottom-bar{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:15px;font-size:11px;color:#7d8c7c;letter-spacing:.05em}
+
+/* FLOATING WHATSAPP CHAT */
+.lunaris-floating-chat{position:fixed;bottom:25px;right:25px;z-index:9999}
+.lunaris-whatsapp-bubble{display:flex;align-items:center;justify-content:center;width:60px;height:60px;background:#25D366;border-radius:50%;box-shadow:0 6px 20px rgba(37,211,102,.4);text-decoration:none;transition:transform .2s,box-shadow .2s;position:relative}
+.lunaris-whatsapp-bubble:hover{transform:scale(1.08);box-shadow:0 8px 25px rgba(37,211,102,.6)}
+.lunaris-chat-tooltip{position:absolute;right:72px;background:#111a16;color:#fff;padding:8px 14px;border-radius:6px;font-size:12px;white-space:nowrap;pointer-events:none;opacity:0;transform:translateX(10px);transition:opacity .2s,transform .2s;border:1px solid #25D366;box-shadow:0 4px 15px rgba(0,0,0,.2)}
+.lunaris-chat-tooltip:after{content:"";position:absolute;right:-6px;top:50%;transform:translateY(-50%);border-width:6px 0 6px 6px;border-style:solid;border-color:transparent transparent transparent #111a16}
+.lunaris-whatsapp-bubble:hover .lunaris-chat-tooltip{opacity:1;transform:translateX(0)}
+
+@media(max-width:980px){
+    .lunaris-footer-grid{grid-template-columns:1fr 1fr;gap:35px}
+}
+@media(max-width:640px){
+    .lunaris-footer-grid{grid-template-columns:1fr;gap:30px}
+    .lunaris-footer-payments{flex-direction:column;align-items:flex-start}
+    .lunaris-footer-bottom-bar{flex-direction:column;align-items:flex-start;gap:8px}
+    .lunaris-chat-tooltip{display:none}
+}
+
+/* NUEVA ESTRUCTURA DE CATEGORÍAS (HOMBRE / MUJER / ACCESORIOS) */
+.lunaris-hero-buttons{display:flex;gap:14px;flex-wrap:wrap;margin-top:20px}
+.lunaris-button.secondary{background:#18241f;color:#e8eee4!important;border:1px solid #c8d4af}
+.lunaris-button.secondary:hover{background:#25372f}
+
+.lunaris-cat-btn{background:#fff;color:#111614;font-size:11px;font-weight:700;letter-spacing:.08em;padding:8px 16px;border-radius:4px;text-transform:uppercase;transition:all .2s}
+.lunaris-category:hover .lunaris-cat-btn{background:#c8d4af;color:#111614}
+
+/* BARRA DE TABS DE CATEGORÍA */
+.lunaris-category-tabs-bar{background:#e7e9e0;border-top:1px solid #d4d8cc;border-bottom:1px solid #d4d8cc;padding:12px clamp(20px,5vw,80px);position:sticky;top:0;z-index:99;backdrop-filter:blur(8px)}
+.lunaris-category-tabs-inner{max-width:1440px;margin:auto;display:flex;align-items:center;gap:10px;overflow-x:auto;padding-bottom:2px}
+.tabs-label{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#495445;margin-right:8px;white-space:nowrap}
+.cat-tab-btn{background:#fff;border:1px solid #cfd4c7;color:#18241f;text-decoration:none;padding:7px 16px;border-radius:20px;font-size:12px;font-weight:600;white-space:nowrap;transition:all .2s;box-shadow:0 1px 3px rgba(0,0,0,.04)}
+.cat-tab-btn:hover{background:#111a16;color:#fff;border-color:#111a16}
+.cat-tab-btn.all{margin-left:auto;background:none;border-color:transparent;color:#111a16;text-decoration:underline}
+
+/* GRILLA DE PRODUCTOS */
+.lunaris-section-sub{font-size:14px;color:#737a74;margin-top:6px;max-width:550px;line-height:1.5}
+.lunaris-products-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-top:28px}
+.lunaris-product-card{background:#fff;border-radius:10px;overflow:hidden;border:1px solid #e8eae5;transition:transform .25s ease,box-shadow .25s ease;display:flex;flex-direction:column}
+.lunaris-product-card:hover{transform:translateY(-4px);box-shadow:0 10px 25px rgba(0,0,0,.07)}
+.lunaris-card-link{text-decoration:none;color:inherit;display:flex;flex-direction:column;height:100%}
+.lunaris-product-thumb{position:relative;background:#f0efe9;overflow:hidden;aspect-ratio:3/4}
+.lunaris-product-thumb img{width:100%;height:100%;object-fit:cover;transition:transform .4s ease}
+.lunaris-product-card:hover .lunaris-product-thumb img{transform:scale(1.04)}
+.lunaris-card-badge{position:absolute;top:12px;left:12px;background:rgba(17,26,22,.85);color:#fff;padding:4px 9px;border-radius:4px;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;backdrop-filter:blur(4px)}
+.lunaris-card-details{padding:16px 14px;display:flex;flex-direction:column;flex:1}
+.lunaris-card-stars{display:flex;align-items:center;gap:6px;margin-bottom:6px}
+.star-icon{color:#f39c12;font-size:12px;letter-spacing:1px}
+.lunaris-card-stars small{color:#777;font-size:11px}
+.lunaris-card-title{font-size:14px;font-weight:600;margin:0 0 8px;line-height:1.4;color:#18241f;min-height:38px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.lunaris-card-details .lunaris-product-price{margin:0 0 12px;font-size:14px;font-weight:700;color:#111614}
+.lunaris-card-cta{margin-top:auto;display:block;text-align:center;background:#f0f2eb;color:#18241f;padding:9px;border-radius:6px;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;transition:all .2s}
+.lunaris-product-card:hover .lunaris-card-cta{background:#111a16;color:#fff}
+
+/* AJUSTES RESPONSIVOS Y PREVENCIÓN DE COLISIÓN DE BOTONES */
+@media(max-width:1100px){
+    .lunaris-products-grid{grid-template-columns:repeat(3,1fr);gap:18px}
+}
+@media(max-width:768px){
+    .lunaris-products-grid{grid-template-columns:repeat(2,1fr);gap:14px}
+    .lunaris-card-details{padding:12px 10px}
+    .lunaris-card-title{font-size:13px;min-height:34px}
+    .lunaris-category-tabs-bar{padding:10px 15px}
+    .cat-tab-btn{font-size:11px;padding:6px 12px}
+    
+    /* Prevenir colisiones de widgets en pantallas pequeñas */
+    .jonilux-a11y-trigger{width:46px!important;height:46px!important;left:14px!important;bottom:14px!important}
+    .jonilux-chatbot-trigger{width:46px!important;height:46px!important;right:14px!important;bottom:14px!important}
+    .jonilux-chat-window{width:calc(100vw - 28px)!important;right:-7px!important;bottom:65px!important;height:460px!important}
+    .jonilux-a11y-panel{width:calc(100vw - 28px)!important;left:-7px!important;bottom:65px!important}
+}
+
+/* SINGLE PRODUCT DETAILS & ACCORDION TYPOGRAPHY */
+.wp-block-woocommerce-accordion-header,
+.accordion-item__heading {
+    font-size: 14px !important;
+    font-family: var(--wp--preset--font-family--inter, 'Inter', -apple-system, BlinkMacSystemFont, sans-serif) !important;
+    font-weight: 500 !important;
+    letter-spacing: 0.01em !important;
+    color: #111a16 !important;
+    margin: 0 !important;
+}
+
+.accordion-item__toggle {
+    font-size: 14px !important;
+    font-family: inherit !important;
+    font-weight: 500 !important;
+    color: #111a16 !important;
+    padding: 14px 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    width: 100% !important;
+    background: none !important;
+    border: none !important;
+    cursor: pointer !important;
+    text-align: left !important;
+}
+
+.accordion-item__toggle span {
+    font-size: 14px !important;
+    font-weight: 500 !important;
+    color: #111a16 !important;
+}
+
+.accordion-item__toggle-icon {
+    width: 18px !important;
+    height: 18px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    color: #666 !important;
+}
+
+.wp-block-woocommerce-accordion-item {
+    border-bottom: 1px solid #e8eae6 !important;
+}
+
+.wp-block-woocommerce-accordion-panel .accordion-content__wrapper {
+    padding: 10px 0 16px !important;
+    font-size: 14px !important;
+    line-height: 1.6 !important;
+    color: #444 !important;
+}
+
+.wp-block-woocommerce-product-details {
+    margin-top: 25px !important;
+    margin-bottom: 25px !important;
+}

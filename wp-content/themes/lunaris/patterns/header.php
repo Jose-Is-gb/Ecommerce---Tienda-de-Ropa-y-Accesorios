@@ -6,11 +6,14 @@
  * Inserter: no
  */
 if (!defined("ABSPATH")) { exit; }
-$base = get_stylesheet_directory_uri() . "/assets/images/";
 $shop = function_exists("wc_get_page_permalink") ? wc_get_page_permalink("shop") : home_url("/shop/");
+$hombre = home_url("/#coleccion-hombre");
+$mujer = home_url("/#coleccion-mujer");
+$acc = home_url("/#accesorios");
+$myaccount = function_exists('wc_get_page_permalink') ? wc_get_page_permalink('myaccount') : wp_login_url();
 ?>
 <!-- wp:html -->
-<div class="lunaris-note">LUNARIS · Moda urbana, identidad propia</div>
+<div class="lunaris-note">LUNARIS • Moda urbana para Hombre y Mujer • Envíos a todo el Perú</div>
 <!-- /wp:html -->
 <!-- wp:group {"className":"lunaris-header","layout":{"type":"default"}} -->
 <div class="wp-block-group lunaris-header"><!-- wp:group {"className":"lunaris-header-inner","layout":{"type":"flex","justifyContent":"space-between","flexWrap":"nowrap"}} -->
@@ -18,10 +21,11 @@ $shop = function_exists("wc_get_page_permalink") ? wc_get_page_permalink("shop")
 <!-- wp:site-title {"level":0,"className":"lunaris-logo"} /-->
 <!-- wp:navigation {"overlayMenu":"mobile","className":"lunaris-nav","layout":{"type":"flex"}} -->
 <!-- wp:navigation-link {"label":"Inicio","url":"<?php echo esc_url(home_url('/')); ?>"} /-->
-<!-- wp:navigation-link {"label":"Colecciones","url":"<?php echo esc_url(home_url('/#colecciones')); ?>"} /-->
-<!-- wp:navigation-link {"label":"Esenciales","url":"<?php echo esc_url(home_url('/#esenciales')); ?>"} /-->
+<!-- wp:navigation-link {"label":"Hombre","url":"<?php echo esc_url($hombre); ?>"} /-->
+<!-- wp:navigation-link {"label":"Mujer","url":"<?php echo esc_url($mujer); ?>"} /-->
+<!-- wp:navigation-link {"label":"Accesorios","url":"<?php echo esc_url($acc); ?>"} /-->
 <!-- wp:navigation-link {"label":"Tienda","url":"<?php echo esc_url($shop); ?>"} /-->
-<!-- wp:navigation-link {"label":"Mi cuenta","url":"<?php echo esc_url(function_exists('wc_get_page_permalink') ? wc_get_page_permalink('myaccount') : wp_login_url()); ?>"} /-->
+<!-- wp:navigation-link {"label":"Mi cuenta","url":"<?php echo esc_url($myaccount); ?>"} /-->
 <!-- /wp:navigation -->
 <!-- wp:woocommerce/mini-cart /-->
 </div><!-- /wp:group --></div><!-- /wp:group -->
