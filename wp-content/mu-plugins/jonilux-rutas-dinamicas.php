@@ -1,59 +1,16 @@
 <?php
 /**
- * Plugin Name: JONILUX – Rutas Dinámicas y Corrección de Imágenes
- * Description: Hace que el sitio y todas las imágenes de productos funcionen automáticamente en la computadora de cualquier compañero (XAMPP/WAMP), sin importar el nombre de la carpeta, el puerto ni el host.
+ * Plugin Name: JONILUX – Corrección Dinámica de Imágenes
+ * Description: Hace que todas las imágenes de productos funcionen automáticamente en la computadora de cualquier compañero (XAMPP/WAMP), normalizando las rutas a la URL actual configurada.
  * Author: JONILUX Team
- * Version: 1.0.0
+ * Version: 1.0.1
  */
 
 defined('ABSPATH') || exit;
 
 /**
- * 1. Detección automática y dinámica de la URL del sitio y home
- */
-function jonilux_get_dynamic_base_url() {
-    if (empty($_SERVER['HTTP_HOST'])) {
-        return false;
-    }
-
-    $is_https = (
-        (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ||
-        (isset($_SERVER['SERVER_PORT']) && $_SERVER['SERVER_PORT'] == 443) ||
-        (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https')
-    );
-
-    $protocol = $is_https ? 'https://' : 'http://';
-    $host = $_SERVER['HTTP_HOST'];
-
-    // Determinar la subcarpeta relativa desde SCRIPT_NAME o REQUEST_URI
-    $script = $_SERVER['SCRIPT_NAME'] ?? '';
-    $clean_script = preg_replace('#/(wp-admin|wp-content|wp-includes|wp-json|index\.php).*$#i', '', $script);
-    $folder = trim(dirname($clean_script), '/\\');
-
-    $subpath = ($folder === '' || $folder === '.') ? '' : '/' . str_replace('\\', '/', $folder);
-
-    return rtrim($protocol . $host . $subpath, '/');
-}
-
-// Sobrescribir dinámicamente siteurl y home si no están forzados en wp-config
-if (!defined('WP_SITEURL')) {
-    add_filter('pre_option_siteurl', function ($value) {
-        $dynamic = jonilux_get_dynamic_base_url();
-        return $dynamic ? $dynamic : $value;
-    }, 1);
-}
-
-if (!defined('WP_HOME')) {
-    add_filter('pre_option_home', function ($value) {
-        $dynamic = jonilux_get_dynamic_base_url();
-        return $dynamic ? $dynamic : $value;
-    }, 1);
-}
-
-/**
- * 2. Normalizador de URLs de uploads:
- * Convierte cualquier URL antigua (ej: http://localhost/wordpress/wp-content/uploads/...)
- * a la URL actual del entorno en ejecución.
+ * 1. Normalizador de URLs de uploads:
+ * Convierte cualquier URL antigua o con host/carpeta diferente a la URL del entorno actual.
  */
 function jonilux_fix_upload_url($url) {
     if (empty($url) || !is_string($url)) {
@@ -104,7 +61,7 @@ add_filter('upload_dir', function ($uploads) {
 }, 999);
 
 /**
- * 3. Normalizador de URLs incrustadas en HTML o bloques
+ * 2. Normalizador de URLs incrustadas en HTML o bloques
  */
 function jonilux_fix_html_upload_urls($html) {
     if (empty($html) || !is_string($html)) {
