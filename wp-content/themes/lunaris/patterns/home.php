@@ -32,9 +32,6 @@ if (!function_exists('lunaris_render_product_card')) {
         
         $rating = $product->get_average_rating();
         $rating_count = $product->get_rating_count();
-        if ($rating_count == 0) {
-            $rating = 5.0; // Puntuación referencial de calidad
-        }
         ?>
         <article class="lunaris-product-card">
             <a href="<?php echo $permalink; ?>" class="lunaris-card-link">
@@ -43,15 +40,12 @@ if (!function_exists('lunaris_render_product_card')) {
                     <span class="lunaris-card-badge"><?php echo $cat_name; ?></span>
                 </div>
                 <div class="lunaris-card-details">
-                    <div class="lunaris-card-stars" aria-label="Calificación 5 de 5 estrellas">
-                        <span class="star-icon">
-                            <svg width="12" height="12" viewBox="0 0 24 24" fill="#f39c12"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-                            <svg width="12" height="12" viewBox="0 0 24 24" fill="#f39c12"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-                            <svg width="12" height="12" viewBox="0 0 24 24" fill="#f39c12"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-                            <svg width="12" height="12" viewBox="0 0 24 24" fill="#f39c12"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-                            <svg width="12" height="12" viewBox="0 0 24 24" fill="#f39c12"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-                        </span>
-                        <small>(<?php echo number_format($rating, 1); ?>)</small>
+                    <div class="lunaris-card-stars">
+                        <?php if ($rating_count > 0) : ?>
+                            <?php echo wc_get_rating_html((float) $rating, $rating_count); ?>
+                        <?php else : ?>
+                            <small>Sin valoraciones</small>
+                        <?php endif; ?>
                     </div>
                     <h3 class="lunaris-card-title"><?php echo $title; ?></h3>
                     <div class="lunaris-product-price">
@@ -172,7 +166,7 @@ $accesorios_products = function_exists('wc_get_products') ? wc_get_products([
                 <h2 id="hombre-title">Ropa de Hombre</h2>
                 <p class="lunaris-section-sub">Polos de alto gramaje, hoodies urbanos, sobrecamisas vintage y pantalones cargo.</p>
             </div>
-            <a class="lunaris-text-link" href="<?php echo esc_url(home_url('/categoria-producto/hombre/')); ?>">Ver toda la ropa de hombre (41) ↗</a>
+            <a class="lunaris-text-link" href="<?php echo esc_url(get_term_link('hombre', 'product_cat')); ?>">Ver toda la ropa de hombre (41) ↗</a>
         </div>
 
         <div class="lunaris-products-grid">
@@ -194,7 +188,7 @@ $accesorios_products = function_exists('wc_get_products') ? wc_get_products([
                 <h2 id="mujer-title">Ropa de Mujer</h2>
                 <p class="lunaris-section-sub">Tops contemporáneos, vestidos ligeros, faldas casuales y cardigans con estilo urbano.</p>
             </div>
-            <a class="lunaris-text-link" href="<?php echo esc_url(home_url('/categoria-producto/mujer/')); ?>">Ver toda la ropa de mujer (42) ↗</a>
+            <a class="lunaris-text-link" href="<?php echo esc_url(get_term_link('mujer', 'product_cat')); ?>">Ver toda la ropa de mujer (42) ↗</a>
         </div>
 
         <div class="lunaris-products-grid">
@@ -216,7 +210,7 @@ $accesorios_products = function_exists('wc_get_products') ? wc_get_products([
                 <h2 id="accesorios-title">Accesorios & Calzado</h2>
                 <p class="lunaris-section-sub">Complementa tu outfit con gorras de diseño minimalista, pulseras de hematita y zapatillas urbanas.</p>
             </div>
-            <a class="lunaris-text-link" href="<?php echo esc_url(home_url('/categoria-producto/accesorios/')); ?>">Ver todos los accesorios ↗</a>
+            <a class="lunaris-text-link" href="<?php echo esc_url(get_term_link('accesorios', 'product_cat')); ?>">Ver todos los accesorios ↗</a>
         </div>
 
         <div class="lunaris-products-grid">

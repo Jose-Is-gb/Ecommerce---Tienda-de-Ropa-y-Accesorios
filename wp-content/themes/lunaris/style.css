@@ -66,7 +66,7 @@ html{scroll-behavior:smooth;scroll-padding-top:100px}body{background:var(--lunar
     .lunaris-chat-tooltip{display:none}
 }
 
-/* NUEVA ESTRUCTURA DE CATEGORÕAS (HOMBRE / MUJER / ACCESORIOS) */
+/* NUEVA ESTRUCTURA DE CATEGOR√çAS (HOMBRE / MUJER / ACCESORIOS) */
 .lunaris-hero-buttons{display:flex;gap:14px;flex-wrap:wrap;margin-top:20px}
 .lunaris-button.secondary{background:#18241f;color:#e8eee4!important;border:1px solid #c8d4af}
 .lunaris-button.secondary:hover{background:#25372f}
@@ -74,7 +74,7 @@ html{scroll-behavior:smooth;scroll-padding-top:100px}body{background:var(--lunar
 .lunaris-cat-btn{background:#fff;color:#111614;font-size:11px;font-weight:700;letter-spacing:.08em;padding:8px 16px;border-radius:4px;text-transform:uppercase;transition:all .2s}
 .lunaris-category:hover .lunaris-cat-btn{background:#c8d4af;color:#111614}
 
-/* BARRA DE TABS DE CATEGORÕA */
+/* BARRA DE TABS DE CATEGOR√çA */
 .lunaris-category-tabs-bar{background:#e7e9e0;border-top:1px solid #d4d8cc;border-bottom:1px solid #d4d8cc;padding:12px clamp(20px,5vw,80px);position:sticky;top:0;z-index:99;backdrop-filter:blur(8px)}
 .lunaris-category-tabs-inner{max-width:1440px;margin:auto;display:flex;align-items:center;gap:10px;overflow-x:auto;padding-bottom:2px}
 .tabs-label{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#495445;margin-right:8px;white-space:nowrap}
@@ -101,7 +101,7 @@ html{scroll-behavior:smooth;scroll-padding-top:100px}body{background:var(--lunar
 .lunaris-card-cta{margin-top:auto;display:block;text-align:center;background:#f0f2eb;color:#18241f;padding:9px;border-radius:6px;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;transition:all .2s}
 .lunaris-product-card:hover .lunaris-card-cta{background:#111a16;color:#fff}
 
-/* AJUSTES RESPONSIVOS Y PREVENCI”N DE COLISI”N DE BOTONES */
+/* AJUSTES RESPONSIVOS Y PREVENCI√ìN DE COLISI√ìN DE BOTONES */
 @media(max-width:1100px){
     .lunaris-products-grid{grid-template-columns:repeat(3,1fr);gap:18px}
 }
@@ -112,7 +112,7 @@ html{scroll-behavior:smooth;scroll-padding-top:100px}body{background:var(--lunar
     .lunaris-category-tabs-bar{padding:10px 15px}
     .cat-tab-btn{font-size:11px;padding:6px 12px}
     
-    /* Prevenir colisiones de widgets en pantallas pequeÒas */
+    /* Prevenir colisiones de widgets en pantallas peque√±as */
     .jonilux-a11y-trigger{width:46px!important;height:46px!important;left:14px!important;bottom:14px!important}
     .jonilux-chatbot-trigger{width:46px!important;height:46px!important;right:14px!important;bottom:14px!important}
     .jonilux-chat-window{width:calc(100vw - 28px)!important;right:-7px!important;bottom:65px!important;height:460px!important}

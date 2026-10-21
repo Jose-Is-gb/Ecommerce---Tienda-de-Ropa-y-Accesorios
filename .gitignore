@@ -3,3 +3,4 @@ wp-content/uploads/*/wc-logs/
 
 # Configuracion local con credenciales (usar wp-config-sample.php como plantilla)
 wp-config.php
+.local-backups/
