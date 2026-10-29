@@ -1,6 +1,6 @@
 <?php
 /**
- * Title: LUNARIS home
+ * Title: JONILUX home
  * Slug: lunaris/home
  * Categories: featured
  * Inserter: no
@@ -20,7 +20,7 @@ if (!function_exists('lunaris_render_product_card')) {
         $image_url = $image_id ? wp_get_attachment_image_url($image_id, 'large') : esc_url($base . 'accessories.webp');
         
         $terms = get_the_terms($pid, 'product_cat');
-        $cat_name = 'LUNARIS';
+        $cat_name = 'JONILUX';
         if (!empty($terms) && !is_wp_error($terms)) {
             foreach ($terms as $t) {
                 if ($t->slug !== 'uncategorized' && $t->slug !== 'hombre' && $t->slug !== 'mujer') {
@@ -89,9 +89,9 @@ $accesorios_products = function_exists('wc_get_products') ? wc_get_products([
 
     <!-- HERO SECTION -->
     <section class="lunaris-hero" aria-labelledby="lunaris-title">
-        <img src="<?php echo esc_url($base . 'hero.webp'); ?>" alt="Estilo urbano LUNARIS: conjunto negro en una calle de la ciudad" width="1920" height="700" fetchpriority="high">
+        <img src="<?php echo esc_url($base . 'hero.webp'); ?>" alt="Estilo urbano JONILUX: conjunto negro en una calle de la ciudad" width="1920" height="700" fetchpriority="high">
         <div class="lunaris-hero-copy">
-            <p class="lunaris-eyebrow">LUNARIS / Urban Essentials 2026</p>
+            <p class="lunaris-eyebrow">JONILUX / Urban Essentials 2026</p>
             <h1 id="lunaris-title">Tu estilo.<br>Tu propia<br><span>órbita.</span></h1>
             <p>Esenciales urbanos con cortes contemporáneos, precios transparentes y sin complicaciones.</p>
             <div class="lunaris-hero-buttons">
@@ -227,7 +227,7 @@ $accesorios_products = function_exists('wc_get_products') ? wc_get_products([
     <!-- MANIFIESTO DE MARCA -->
     <section class="lunaris-section lunaris-story" id="lunaris" aria-labelledby="story-title">
         <div>
-            <p class="lunaris-eyebrow">El universo JONILUX / LUNARIS</p>
+            <p class="lunaris-eyebrow">El universo JONILUX</p>
             <h2 id="story-title">Vestir también es expresarte.</h2>
         </div>
         <div>

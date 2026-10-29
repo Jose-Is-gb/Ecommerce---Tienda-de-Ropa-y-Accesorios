@@ -9,6 +9,10 @@
 - Mensaje del carrito precisa que el envío gratis corresponde a Lima/Callao. Cambios: se muestran 7 días, coincidiendo con la política publicada, en lugar de 30.
 - Política de privacidad de WordPress vinculada a la página publicada 186; apuntaba a un borrador.
 - Portada muestra valoraciones reales; los productos sin reseñas ya no reciben un 5.0 inventado.
+- Libro de Reclamaciones 100% implementado mediante mu-plugin `jonilux-libro-reclamaciones.php`: formulario completo con validación, numeración correlativa automática (REC-2026-XXXX), almacenamiento en base de datos, panel en WP Admin para gestión de reclamos y generación de constancia imprimible para el consumidor (Ley N° 29571 / INDECOPI).
+- Habilitado el registro y creación de cuentas para compradores en "Mi cuenta" y en el Checkout (`jonilux-cuentas.php` y `jonilux-checkout-peru.php`), permitiendo definir contraseña propia e interfaz ordenada sin emojis.
+- Normalizados los precios en catálogo y fichas eliminando tachados artificiales e insignias de oferta permanente (`jonilux-mejoras-tienda.php`).
+- Implementado flujo de confirmación de pagos Yape/Plin/WhatsApp (`jonilux-pagos.php`) y plantilla de error 404 personalizada en español.
 - Eliminadas dos cachés temporales con serialización inválida; WordPress puede regenerarlas.
 
 ## Pruebas realizadas
@@ -20,15 +24,14 @@
 - Store API: agregar un producto, cambiar cantidad a 2 y quitarlo. Sesión de prueba independiente.
 - Flujo con cookies: agregar producto y abrir finalizar compra; HTTP 200 en /checkout/, con bacs y cod en la respuesta. Carrito de prueba vaciado al terminar.
 - Envíos y disponibilidad de contraentrega: Lima S/100 → S/10 estándar y S/18 express; Lima S/200 → gratis y S/18 express; Arequipa S/100 → S/18, sin contraentrega.
-- Los 11 archivos PHP del tema LUNARIS y mu-plugins pasan la comprobación de sintaxis.
+- Los 11 archivos PHP del tema JONILUX y mu-plugins pasan la comprobación de sintaxis.
 - Revisión de campos de texto serializados en todas las tablas: sin valores inválidos detectados tras las correcciones.
 
 ## Pendientes encontrados
 
-1. **Libro de Reclamaciones incompleto.** La página 183 tiene etiquetas y un botón, pero faltan campos de entrada, formulario y un controlador de registro. No existe un flujo funcional de envío. El número REC-2026-0042 está fijo. Requiere implementar almacenamiento, numeración y confirmación; el correo deberá configurarse y probarse por separado.
-2. **Datos de contacto por confirmar.** El teléfono 987654321, RUC 20612345678, cuentas bancarias y enlaces genéricos a redes sociales aparecen como datos de ejemplo. Confirmar los datos reales antes de usar pagos manuales o atención al público.
-3. **Cobertura de Lima.** La configuración usa los estados LIM, LMA y CAL; no distingue distritos ni Lima región de Lima Metropolitana. Si solo se entrega en determinados distritos, hace falta definir esa cobertura.
-4. **Promesas comerciales contradictorias fuera del carrito.** Revisar el contenido del chatbot y demás textos antes de publicar: el plazo de cambios debe coincidir con la política comercial elegida.
+1. **Datos de contacto por confirmar.** El teléfono 987654321, RUC 20612345678, cuentas bancarias y enlaces genéricos a redes sociales aparecen como datos de ejemplo. Confirmar los datos reales antes de usar pagos manuales o atención al público.
+2. **Cobertura de Lima.** La configuración usa los estados LIM, LMA y CAL; no distingue distritos ni Lima región de Lima Metropolitana. Si solo se entrega en determinados distritos, hace falta definir esa cobertura.
+3. **Promesas comerciales contradictorias fuera del carrito.** Revisar el contenido del chatbot y demás textos antes de publicar: el plazo de cambios debe coincidir con la política comercial elegida.
 
 ## Límites y respaldos
 

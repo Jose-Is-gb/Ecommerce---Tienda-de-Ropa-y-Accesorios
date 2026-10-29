@@ -1,6 +1,6 @@
 <?php
 /**
- * Title: LUNARIS header
+ * Title: JONILUX header
  * Slug: lunaris/header
  * Categories: featured
  * Inserter: no
@@ -13,7 +13,7 @@ $acc = home_url("/#accesorios");
 $myaccount = function_exists('wc_get_page_permalink') ? wc_get_page_permalink('myaccount') : wp_login_url();
 ?>
 <!-- wp:html -->
-<div class="lunaris-note">LUNARIS • Moda urbana para Hombre y Mujer • Envíos a todo el Perú</div>
+<div class="lunaris-note">JONILUX • Moda urbana para Hombre y Mujer • Envíos a todo el Perú</div>
 <!-- /wp:html -->
 <!-- wp:group {"className":"lunaris-header","layout":{"type":"default"}} -->
 <div class="wp-block-group lunaris-header"><!-- wp:group {"className":"lunaris-header-inner","layout":{"type":"flex","justifyContent":"space-between","flexWrap":"nowrap"}} -->

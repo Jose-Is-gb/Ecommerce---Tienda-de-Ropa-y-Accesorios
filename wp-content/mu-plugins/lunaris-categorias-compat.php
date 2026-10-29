@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name: LUNARIS - Compatibilidad de enlaces de categorías
+ * Plugin Name: JONILUX - Compatibilidad de enlaces de categorías
  * Description: Redirige los enlaces antiguos de categorías a su URL actual.
  */
 
