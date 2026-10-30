@@ -54,13 +54,29 @@ add_action('wp_head', function () {
 
 add_action('wp_body_open', 'jonilux_render_promocion_bar', 1);
 function jonilux_render_promocion_bar() {
+    if (!function_exists('wc_get_coupon_id_by_code')) {
+        return;
+    }
+    $coupon_id = wc_get_coupon_id_by_code('joniluxvip');
+    if (!$coupon_id) {
+        return;
+    }
+    $coupon = new WC_Coupon($coupon_id);
+    $expires = $coupon->get_date_expires();
+    if ($coupon->get_status() !== 'publish' || $coupon->get_discount_type() !== 'percent'
+        || ($expires && $expires->getTimestamp() < time())
+        || ($coupon->get_usage_limit() && $coupon->get_usage_count() >= $coupon->get_usage_limit())) {
+        return;
+    }
+    $code = strtoupper($coupon->get_code());
     ?>
     <div id="jonilux-promo-topbar" style="background: #111614; color: #f4f3ef; padding: 10px 20px; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; display: flex; align-items: center; justify-content: center; gap: 16px; flex-wrap: wrap; border-bottom: 1px solid rgba(255,255,255,0.12); font-family: Arial, sans-serif; z-index: 999; position: relative;">
-        <span style="font-weight: 400; display: inline-flex; align-items: center; gap: 8px;">
-            <span style="background: #c8d4af; color: #111614; padding: 2px 7px; border-radius: 2px; font-size: 9px; font-weight: 700; letter-spacing: 0.12em;">BENEFICIO</span>
-            15% de descuento en tu compra con el codigo <strong>JONILUXVIP</strong> (pedidos desde S/ 180.00)
+        <span style="font-weight: 400; line-height: 1.7; text-align: center;">
+            <span style="background: #c8d4af; color: #111614; padding: 2px 7px; margin-right: 8px; border-radius: 2px; font-size: 9px; font-weight: 700; letter-spacing: 0.12em;">BENEFICIO</span>
+            <?php echo esc_html(wc_format_decimal($coupon->get_amount())); ?>% de descuento en tu compra con el codigo <strong><?php echo esc_html($code); ?></strong>
+            <?php if ($coupon->get_minimum_amount()) : ?> (pedidos desde <?php echo wp_kses_post(wc_price($coupon->get_minimum_amount())); ?>)<?php endif; ?>
         </span>
-        <button type="button" id="jonilux-copy-coupon-btn" onclick="navigator.clipboard.writeText('JONILUXVIP'); this.textContent='CODIGO COPIADO'; setTimeout(()=>this.textContent='COPIAR CODIGO', 2200);" style="background: transparent; color: #c8d4af; border: 1px solid #c8d4af; padding: 4px 12px; border-radius: 2px; font-size: 9px; font-weight: 700; letter-spacing: 0.14em; cursor: pointer; text-transform: uppercase; transition: all 0.2s;">
+        <button type="button" id="jonilux-copy-coupon-btn" data-coupon="<?php echo esc_attr($code); ?>" onclick="if(navigator.clipboard){navigator.clipboard.writeText(this.dataset.coupon).then(()=>{this.textContent='CODIGO COPIADO';setTimeout(()=>this.textContent='COPIAR CODIGO',2200);}).catch(()=>{this.textContent='Copia el codigo mostrado';});}else{this.textContent='Copia el codigo mostrado';}" style="background: transparent; color: #c8d4af; border: 1px solid #c8d4af; padding: 4px 12px; border-radius: 2px; font-size: 9px; font-weight: 700; letter-spacing: 0.14em; cursor: pointer; text-transform: uppercase; transition: all 0.2s;">
             COPIAR CODIGO
         </button>
     </div>
@@ -166,11 +182,11 @@ function jonilux_inject_single_product_trust_script() {
         var addons = document.querySelector('.jonilux-single-addons');
         if (cartForm && !addons) {
             var container = document.createElement('div');
-            container.innerHTML = `<?php
+            container.innerHTML = <?php
                 ob_start();
                 jonilux_render_trust_and_whatsapp_buttons();
-                echo trim(preg_replace('/\s+/', ' ', ob_get_clean()));
-            ?>`;
+                echo wp_json_encode(ob_get_clean(), JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT);
+            ?>;
             cartForm.parentNode.insertBefore(container, cartForm.nextSibling);
         }
     });

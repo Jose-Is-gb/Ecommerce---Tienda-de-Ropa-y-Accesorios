@@ -38,3 +38,42 @@
 La revisión usó solicitudes HTTP, Store API y ejecución de WooCommerce en PHP. No se automatizó un navegador visual, no se enviaron reclamaciones/correos y no se generaron pedidos ni pagos reales. No se garantiza la ejecución de todos los comportamientos JavaScript del navegador.
 
 Respaldos, scripts y resultados están en `.local-backups/`, excluida de Git y bloqueada por Apache. `tienda_wp-corregida.sql` dentro de esa carpeta contiene una exportación actualizada después de estas correcciones. Los cambios de configuración de la base no se comparten mediante un commit de los archivos PHP.
+
+## Revisión del 30 de octubre de 2026
+
+Se inspeccionó primero el ecommerce, Claude reformuló la solicitud y Codex implementó las correcciones. La auditoría de Claude se ejecuta en modo de lectura; los informes se guardan en `.codex/audits/`. El flujo reutilizable queda descrito en `AGENTS.md`.
+
+### Correcciones de esta entrega
+
+- Registro obligatorio de DNI de 8 dígitos o RUC de 11 en el checkout por bloques y su Store API, conservando el checkout clásico y los metadatos de pedidos con HPOS. Se valida el formato; no se consulta ni certifica la identidad del titular.
+- La promoción anuncia el cupón existente `JONILUXVIP`, con su porcentaje y mínimo reales. Se conserva el 15 % desde S/180. La promoción se omite si WooCommerce no está disponible o el cupón dejó de ser utilizable.
+- La barra de envío gratis descuenta cupones. Caso verificado: S/160 con `BIENVENIDA10` queda en S/144 y no obtiene envío gratis.
+- Las instrucciones de transferencia se muestran solo para pedidos pendientes o en espera. Los pedidos pagados, cancelados, fallidos o reembolsados muestran su estado real. El WhatsApp de contraentrega consulta la entrega y no pide comprobante.
+- El HTML insertado desde PHP en JavaScript se serializa con `wp_json_encode` y opciones HEX.
+- Se bloqueó por HTTP el acceso a SQL, Git, respaldos, herramientas locales y pruebas. Las reglas se limitan a los directorios locales de la raíz y conservan los recursos de pasarelas bajo directorios internos llamados `scripts`.
+- El pixel de Reddit no se invoca si no existe un identificador configurado. Se utiliza el filtro del plugin, sin editarlo ni desactivar las conversiones existentes.
+  La segunda auditoría señaló además el evento `Purchase` en la página de confirmación: se añadió un filtro de lectura de la opción para impedir que se registren esos callbacks sin pixel, conservando la configuración almacenada y CAPI. Se verificó con el plugin real cargado en la copia aislada. Esta última corrección no recibió una tercera auditoría, por el límite de dos rondas acordado.
+
+### Verificación
+
+- 15 escenarios funcionales en una copia aislada de la base: documentos, integración real de Reddit sin pixel (incluida ausencia del callback Purchase), descuentos, tarifas, cobertura COD, compras por Store API, persistencia del documento, estados, registro, autenticación y email duplicado. Correos interceptados y HTTP externo bloqueado; no se realizaron cobros reales.
+- Prueba independiente de la barra con WooCommerce ausente.
+- Chrome con perfil nuevo: portada, producto, carrito, cambio de cantidad, aplicación del cupón, checkout con DNI/RUC en escritorio y móvil, formularios de acceso/registro y limpieza del carrito anónimo. Resultado final sin excepciones JavaScript.
+- HTTP 403 para ambos SQL antiguos, `.git/config`, respaldos y herramientas. HTTP 200 para el asset de Mercado Pago que contiene un directorio `scripts`.
+- Sintaxis de PHP y configuración de Apache correctas.
+
+### Base para importar
+
+La base activa es `tienda_wp`; esta instalación ya la tiene cargada. No se importó ningún SQL sobre ella.
+
+**Respaldo recomendado para una instalación nueva:** `.local-backups/tienda_wp-lista-importar-20261030.sql` (UTF-8/utf8mb4). Su importación se verificó en una base vacía: 57 tablas, 83 productos publicados y 3 cupones. No incluye los pedidos ni clientes ficticios de las pruebas, que se generaron en otra base.
+
+Los archivos `tienda_wp.sql` y `tienda_wp-utf8.sql` de la raíz son idénticos y contienen una exportación del 20 de octubre a las 18:39. La copia histórica `tienda_wp-corregida.sql` es de las 22:56 del mismo día. Se conservan los originales; para reinstalar el estado revisado se debe usar el respaldo nuevo con el código actualizado.
+
+En phpMyAdmin, seleccionar una base **vacía**, importar el archivo con codificación UTF-8 y usar ese nombre en `DB_NAME` de `wp-config.php`. No importar sobre una base con ventas o clientes que se deban conservar.
+
+El respaldo anterior a la sustitución de marca conserva el nombre y cupón antiguos. Después de importarlo, ejecutar desde la raíz `C:\xampp\php\php.exe scripts/Update-JoniluxBrand.php` para revisar el plan y luego repetir con `--apply`. La migración actualiza el nombre a JONILUX, los textos públicos diagnosticados y el código a JONILUXVIP, conservando el ID y las condiciones del cupón (15 % desde S/180). En esta instalación activa ya se aplicó; una segunda ejecución no tiene cambios pendientes. Conserva URLs, archivos, identificadores técnicos y el historial de compras; guarda un respaldo selectivo local antes de escribir.
+
+### Límites
+
+No se validaron cobros ni webhooks reales de PayPal/Mercado Pago. Los datos de contacto y cuentas bancarias señalados como ejemplos en la revisión anterior siguen pendientes de confirmación del negocio; no se inventaron sustitutos. Se conservaron las políticas comerciales existentes.

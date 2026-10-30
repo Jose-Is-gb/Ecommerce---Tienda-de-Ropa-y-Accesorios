@@ -47,7 +47,8 @@ add_action('wp_enqueue_scripts', function () {
 			var totals = wp.data.select("wc/store/cart").getCartTotals();
 			if (!totals || !totals.total_items) { bar.hidden = true; return; }
 			var unit = Math.pow(10, totals.currency_minor_unit || 0);
-			var subtotal = (parseInt(totals.total_items, 10) + parseInt(totals.total_items_tax || 0, 10)) / unit;
+			var subtotal = Math.max(0, (parseInt(totals.total_items, 10) + parseInt(totals.total_items_tax || 0, 10)
+				- parseInt(totals.total_discount || 0, 10) - parseInt(totals.total_discount_tax || 0, 10)) / unit);
 			var items = wp.data.select("wc/store/cart").getCartData().itemsCount;
 			if (!items) { bar.hidden = true; return; }
 			bar.hidden = false;

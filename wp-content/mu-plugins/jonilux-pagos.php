@@ -41,19 +41,39 @@ function jonilux_render_order_received_whatsapp_confirmation($order_id) {
     }
 
     $payment_method = $order->get_payment_method();
+    if (!in_array($payment_method, array('bacs', 'cod'), true)) {
+        return;
+    }
     $order_number = $order->get_order_number();
     $total_formatted = wc_price($order->get_total());
     $total_raw = number_format((float)$order->get_total(), 2, '.', '');
-    $customer_name = esc_attr($order->get_billing_first_name() ?: 'Cliente');
+    $customer_name = $order->get_billing_first_name() ?: 'Cliente';
     $numero_wa = '51987654321';
 
-    $wa_msg = sprintf(
-        "Hola JONILUX, adjunto mi comprobante de pago para el Pedido #%s por el monto de S/ %s. (Cliente: %s)",
-        $order_number,
-        $total_raw,
-        $customer_name
-    );
+    $pending_bacs = $payment_method === 'bacs' && $order->has_status(array('pending', 'on-hold'));
+    $pending_cod = $payment_method === 'cod' && $order->has_status(array('pending', 'on-hold', 'processing'));
+    if ($pending_bacs) {
+        $wa_msg = sprintf('Hola JONILUX, adjunto mi comprobante de pago para el Pedido #%s por el monto de S/ %s. (Cliente: %s)', $order_number, $total_raw, $customer_name);
+    } elseif ($pending_cod) {
+        $wa_msg = sprintf('Hola JONILUX, consulto la entrega de mi Pedido #%s con pago contra entrega por S/ %s. (Cliente: %s)', $order_number, $total_raw, $customer_name);
+    } else {
+        $wa_msg = sprintf('Hola JONILUX, consulto el estado de mi Pedido #%s. (Cliente: %s)', $order_number, $customer_name);
+    }
     $wa_url = 'https://wa.me/' . $numero_wa . '?text=' . rawurlencode($wa_msg);
+    if (!$pending_bacs && !$pending_cod) {
+        ?>
+        <section class="jonilux-thankyou-box" style="margin:28px 0;padding:24px;border:1px solid #dcded7;">
+            <h3>Pedido #<?php echo esc_html($order_number); ?>: <?php echo esc_html(wc_get_order_status_name($order->get_status())); ?></h3>
+            <?php if ($payment_method === 'bacs' && $order->is_paid()) : ?>
+                <p>Tu pago ya esta confirmado. No necesitas realizar otra transferencia.</p>
+            <?php else : ?>
+                <p>Consulta el detalle de tu pedido o contactanos si necesitas ayuda.</p>
+            <?php endif; ?>
+            <a href="<?php echo esc_url($wa_url); ?>" target="_blank" rel="noopener noreferrer">Consultar mi pedido por WhatsApp</a>
+        </section>
+        <?php
+        return;
+    }
     ?>
 
     <div class="jonilux-thankyou-box" style="margin: 28px 0; padding: 26px 30px; background: #ffffff; border: 1px solid #111614; border-radius: 6px; font-family: Arial, sans-serif; color: #17211a;">
@@ -78,7 +98,7 @@ function jonilux_render_order_received_whatsapp_confirmation($order_id) {
                 </div>
                 <div>
                     <span style="font-size: 10px; color: #626b63; text-transform: uppercase; letter-spacing: 0.1em; display: block; margin-bottom: 2px;">Estado del pedido:</span>
-                    <span style="display: inline-block; background: #e7e9e0; color: #17211a; padding: 3px 9px; border-radius: 2px; font-size: 11px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase;">Pendiente de pago</span>
+                    <span style="display: inline-block; background: #e7e9e0; color: #17211a; padding: 3px 9px; border-radius: 2px; font-size: 11px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase;"><?php echo esc_html(wc_get_order_status_name($order->get_status())); ?></span>
                 </div>
             </div>
 

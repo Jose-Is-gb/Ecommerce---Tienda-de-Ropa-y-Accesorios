@@ -19,7 +19,7 @@ $libro = home_url("/libro-de-reclamaciones/");
         <div class="lunaris-footer-grid">
             <!-- Columna 1: Marca y Empresa -->
             <div class="lunaris-footer-col brand-col">
-                <a class="lunaris-footer-logo-ext" href="<?php echo esc_url(home_url('/')); ?>">JONILUX</a>
+                <a class="lunaris-footer-logo-ext" href="<?php echo esc_url(home_url('/')); ?>"><?php echo esc_html(get_bloginfo('name')); ?></a>
                 <p class="lunaris-footer-tagline">Esenciales urbanos. Moda moderna, precios claros y compra sin complicaciones.</p>
                 <div class="lunaris-company-info">
                     <p><strong>JONILUX S.A.C.</strong></p>
@@ -94,7 +94,7 @@ $libro = home_url("/libro-de-reclamaciones/");
         <div class="lunaris-footer-payments">
             <div class="lunaris-payments-label">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
-                <span>Pagos 100% Seguros y Encriptados:</span>
+                <span>Formas de pago</span>
             </div>
             <div class="lunaris-payment-badges">
                 <span class="pay-badge yape">YAPE</span>
