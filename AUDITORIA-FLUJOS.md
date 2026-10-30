@@ -37,7 +37,7 @@
 
 La revisión usó solicitudes HTTP, Store API y ejecución de WooCommerce en PHP. No se automatizó un navegador visual, no se enviaron reclamaciones/correos y no se generaron pedidos ni pagos reales. No se garantiza la ejecución de todos los comportamientos JavaScript del navegador.
 
-Respaldos, scripts y resultados están en `.local-backups/`, excluida de Git y bloqueada por Apache. `tienda_wp-corregida.sql` dentro de esa carpeta contiene una exportación actualizada después de estas correcciones. Los cambios de configuración de la base no se comparten mediante un commit de los archivos PHP.
+La exportación completa actual está en `.local-backups/tienda_wp-actual-20261030.sql`, excluida de Git y bloqueada por Apache. Las exportaciones SQL anteriores se eliminaron después de verificar esta copia. Los resultados y respaldos que no son SQL siguen en `.local-backups/`. Los cambios de configuración de la base no se comparten mediante un commit de los archivos PHP.
 
 ## Revisión del 30 de octubre de 2026
 
@@ -66,13 +66,15 @@ Se inspeccionó primero el ecommerce, Claude reformuló la solicitud y Codex imp
 
 La base activa es `tienda_wp`; esta instalación ya la tiene cargada. No se importó ningún SQL sobre ella.
 
-**Respaldo recomendado para una instalación nueva:** `.local-backups/tienda_wp-lista-importar-20261030.sql` (UTF-8/utf8mb4). Su importación se verificó en una base vacía: 57 tablas, 83 productos publicados y 3 cupones. No incluye los pedidos ni clientes ficticios de las pruebas, que se generaron en otra base.
+**Única exportación SQL actual:** `.local-backups/tienda_wp-actual-20261030.sql` (UTF-8/utf8mb4; 1 897 677 bytes). Es una copia completa de la base activa: conserva las 57 tablas, el catálogo, la configuración, los 5 pedidos, los datos de 5 compradores y la cuenta de acceso existente. Incluye la marca JONILUX y el cupón `joniluxvip` (15 % desde S/180).
 
-Los archivos `tienda_wp.sql` y `tienda_wp-utf8.sql` de la raíz son idénticos y contienen una exportación del 20 de octubre a las 18:39. La copia histórica `tienda_wp-corregida.sql` es de las 22:56 del mismo día. Se conservan los originales; para reinstalar el estado revisado se debe usar el respaldo nuevo con el código actualizado.
+Se verificó importándola en una base temporal nueva: coincidieron los recuentos y checksums de las 57 tablas con la base activa. Se comprobaron el nombre del sitio y las condiciones del cupón. La base temporal se eliminó y `tienda_wp` quedó intacta. Los datos de las pruebas de compra se generaron en bases aisladas y no forman parte de esta exportación.
 
-En phpMyAdmin, seleccionar una base **vacía**, importar el archivo con codificación UTF-8 y usar ese nombre en `DB_NAME` de `wp-config.php`. No importar sobre una base con ventas o clientes que se deban conservar.
+Por elección del usuario, esta copia completa es **privada y no se incluye en el commit**: contiene datos de compradores, hashes de acceso, sesiones y configuración privada de integraciones. `.gitignore` mantiene excluidos `.local-backups/`, `*.sql` y `*.sql.gz`; no se debe forzar su inclusión con `git add -f`. Si otro entorno necesita la base, transferir la copia por separado y de forma privada. Los dos SQL antiguos que estaban rastreados en la raíz quedan eliminados del árbol de trabajo; esto no reescribe el historial de Git.
 
-El respaldo anterior a la sustitución de marca conserva el nombre y cupón antiguos. Después de importarlo, ejecutar desde la raíz `C:\xampp\php\php.exe scripts/Update-JoniluxBrand.php` para revisar el plan y luego repetir con `--apply`. La migración actualiza el nombre a JONILUX, los textos públicos diagnosticados y el código a JONILUXVIP, conservando el ID y las condiciones del cupón (15 % desde S/180). En esta instalación activa ya se aplicó; una segunda ejecución no tiene cambios pendientes. Conserva URLs, archivos, identificadores técnicos y el historial de compras; guarda un respaldo selectivo local antes de escribir.
+En phpMyAdmin, crear y seleccionar una base **vacía**, importar el archivo con codificación UTF-8 y configurar su nombre en `DB_NAME` del `wp-config.php` local. No importar sobre una base con ventas o clientes que se deban conservar. Si cambia la URL del entorno, ajustar las opciones `siteurl` y `home` antes de abrir la tienda. No hacen falta migraciones de marca después de importar este SQL: ya contiene JONILUX y el cupón actualizado.
+
+Se eliminaron siete exportaciones anteriores: los dos SQL de la raíz y cinco SQL de `.local-backups/`, incluidas las copias antiguas y las generadas para pruebas aisladas. Se conservaron los demás archivos y respaldos locales.
 
 ### Límites
 
