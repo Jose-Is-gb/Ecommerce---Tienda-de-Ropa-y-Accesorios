@@ -37,7 +37,7 @@
 
 La revisión usó solicitudes HTTP, Store API y ejecución de WooCommerce en PHP. No se automatizó un navegador visual, no se enviaron reclamaciones/correos y no se generaron pedidos ni pagos reales. No se garantiza la ejecución de todos los comportamientos JavaScript del navegador.
 
-La exportación completa actual está en `.local-backups/tienda_wp-actual-20261030.sql`, excluida de Git y bloqueada por Apache. Las exportaciones SQL anteriores se eliminaron después de verificar esta copia. Los resultados y respaldos que no son SQL siguen en `.local-backups/`. Los cambios de configuración de la base no se comparten mediante un commit de los archivos PHP.
+La exportación completa actual está en `database/tienda_wp-actual-20261030.sql`, incluida por autorización del usuario en este repositorio privado y bloqueada por Apache. Las exportaciones SQL anteriores se eliminaron después de verificar esta copia. Los resultados y respaldos que no son SQL siguen en `.local-backups/`, excluida de Git. Los cambios de configuración de la base no se comparten mediante un commit de los archivos PHP por sí solos.
 
 ## Revisión del 30 de octubre de 2026
 
@@ -59,18 +59,18 @@ Se inspeccionó primero el ecommerce, Claude reformuló la solicitud y Codex imp
 - 15 escenarios funcionales en una copia aislada de la base: documentos, integración real de Reddit sin pixel (incluida ausencia del callback Purchase), descuentos, tarifas, cobertura COD, compras por Store API, persistencia del documento, estados, registro, autenticación y email duplicado. Correos interceptados y HTTP externo bloqueado; no se realizaron cobros reales.
 - Prueba independiente de la barra con WooCommerce ausente.
 - Chrome con perfil nuevo: portada, producto, carrito, cambio de cantidad, aplicación del cupón, checkout con DNI/RUC en escritorio y móvil, formularios de acceso/registro y limpieza del carrito anónimo. Resultado final sin excepciones JavaScript.
-- HTTP 403 para ambos SQL antiguos, `.git/config`, respaldos y herramientas. HTTP 200 para el asset de Mercado Pago que contiene un directorio `scripts`.
+- HTTP 403 confirmado para la exportación actual `database/tienda_wp-actual-20261030.sql`. Los SQL antiguos se eliminaron después de verificar la copia. Se conserva el bloqueo de `.git/config`, respaldos y herramientas; la comprobación anterior dio HTTP 200 para el asset de Mercado Pago que contiene un directorio `scripts`.
 - Sintaxis de PHP y configuración de Apache correctas.
 
 ### Base para importar
 
 La base activa es `tienda_wp`; esta instalación ya la tiene cargada. No se importó ningún SQL sobre ella.
 
-**Única exportación SQL actual:** `.local-backups/tienda_wp-actual-20261030.sql` (UTF-8/utf8mb4; 1 897 677 bytes). Es una copia completa de la base activa: conserva las 57 tablas, el catálogo, la configuración, los 5 pedidos, los datos de 5 compradores y la cuenta de acceso existente. Incluye la marca JONILUX y el cupón `joniluxvip` (15 % desde S/180).
+**Única exportación SQL actual:** `database/tienda_wp-actual-20261030.sql` (UTF-8/utf8mb4; 1 897 677 bytes). Es una copia completa de la base activa: conserva las 57 tablas, el catálogo, la configuración, los 5 pedidos, los datos de 5 compradores y la cuenta de acceso existente. Incluye la marca JONILUX y el cupón `joniluxvip` (15 % desde S/180).
 
-Se verificó importándola en una base temporal nueva: coincidieron los recuentos y checksums de las 57 tablas con la base activa. Se comprobaron el nombre del sitio y las condiciones del cupón. La base temporal se eliminó y `tienda_wp` quedó intacta. Los datos de las pruebas de compra se generaron en bases aisladas y no forman parte de esta exportación.
+Se verificó importándola en una base temporal nueva: coincidieron los recuentos y checksums de las 57 tablas con la base activa. Se comprobaron el nombre del sitio y las condiciones del cupón. La base temporal se eliminó y `tienda_wp` quedó intacta. La copia conserva todos los datos existentes en la base activa, sin excluir pedidos por su origen.
 
-Por elección del usuario, esta copia completa es **privada y no se incluye en el commit**: contiene datos de compradores, hashes de acceso, sesiones y configuración privada de integraciones. `.gitignore` mantiene excluidos `.local-backups/`, `*.sql` y `*.sql.gz`; no se debe forzar su inclusión con `git add -f`. Si otro entorno necesita la base, transferir la copia por separado y de forma privada. Los dos SQL antiguos que estaban rastreados en la raíz quedan eliminados del árbol de trabajo; esto no reescribe el historial de Git.
+Por autorización expresa del usuario, esta copia completa **se versiona en el repositorio privado**, incluidos los datos de compradores, hashes de acceso, sesiones y configuración de integraciones. `.gitignore` permite únicamente `database/tienda_wp-actual-20261030.sql` y mantiene excluidos los demás `*.sql`, `*.sql.gz`, `.local-backups/` y la configuración local `wp-config.php`. `.gitattributes` conserva los bytes exactos de este SQL sin conversión de saltos de línea. Los dos SQL antiguos de la raíz se eliminaron; esto no reescribe el historial de Git.
 
 En phpMyAdmin, crear y seleccionar una base **vacía**, importar el archivo con codificación UTF-8 y configurar su nombre en `DB_NAME` del `wp-config.php` local. No importar sobre una base con ventas o clientes que se deban conservar. Si cambia la URL del entorno, ajustar las opciones `siteurl` y `home` antes de abrir la tienda. No hacen falta migraciones de marca después de importar este SQL: ya contiene JONILUX y el cupón actualizado.
 

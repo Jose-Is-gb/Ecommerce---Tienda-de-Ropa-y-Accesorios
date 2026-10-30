@@ -6,6 +6,7 @@ wp-config.php
 .local-backups/
 /.codex/
 
-# Los nuevos respaldos se conservan fuera del historial del codigo.
+# Excluir respaldos salvo la exportacion completa autorizada para este repositorio.
 *.sql
 *.sql.gz
+!/database/tienda_wp-actual-20261030.sql
