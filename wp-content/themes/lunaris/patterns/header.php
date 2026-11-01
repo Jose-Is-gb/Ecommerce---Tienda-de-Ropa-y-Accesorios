@@ -28,7 +28,7 @@ $myaccount = function_exists('wc_get_page_permalink') ? wc_get_page_permalink('m
 <!-- wp:group {"className":"lunaris-header","layout":{"type":"default"}} -->
 <div class="wp-block-group lunaris-header"><!-- wp:group {"className":"lunaris-header-inner","layout":{"type":"flex","justifyContent":"space-between","flexWrap":"nowrap"}} -->
 <div class="wp-block-group lunaris-header-inner">
-<!-- wp:site-title {"level":0,"className":"lunaris-logo"} /-->
+<!-- wp:html --><h1 class="wp-block-site-title lunaris-logo"><a href="<?php echo esc_url(home_url('/')); ?>" rel="home">JONILUX</a></h1><!-- /wp:html -->
 <!-- wp:search {"label":"Buscar productos","showLabel":false,"placeholder":"Buscar productos…","buttonText":"Buscar","buttonPosition":"button-inside","buttonUseIcon":true,"query":{"post_type":"product"},"className":"lunaris-header-search"} /-->
 <!-- wp:navigation {"overlayMenu":"mobile","className":"lunaris-nav","layout":{"type":"flex"}} -->
 <!-- wp:navigation-link {"label":"Inicio","url":"<?php echo esc_url(home_url('/')); ?>"} /-->
