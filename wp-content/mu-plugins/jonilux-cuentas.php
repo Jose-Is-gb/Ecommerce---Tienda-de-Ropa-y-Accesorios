@@ -261,6 +261,7 @@ function jonilux_estilos_mi_cuenta() {
 
         /* --- Panel de Contenido Principal --- */
         .woocommerce-account .woocommerce-MyAccount-content {
+            display: flow-root;
             margin-left: 280px;
             float: none;
             width: auto;
@@ -512,12 +513,54 @@ function jonilux_estilos_mi_cuenta() {
             margin-top: 10px;
         }
 
+        /* Anular floats antiguos y el clear de WooCommerce que causaba el hueco vacio */
+        .woocommerce-account form.edit-account .clear,
+        .woocommerce-account form.woocommerce-EditAddressForm .clear {
+            display: none !important;
+            clear: none !important;
+        }
+
+        .woocommerce-account form.edit-account,
+        .woocommerce-account form.woocommerce-EditAddressForm .woocommerce-address-fields__field-wrapper {
+            display: flex !important;
+            flex-wrap: wrap !important;
+            gap: 16px 20px !important;
+        }
+
+        .woocommerce-account form.edit-account .woocommerce-form-row--first,
+        .woocommerce-account form.edit-account .woocommerce-form-row--last,
+        .woocommerce-account form.woocommerce-EditAddressForm .form-row-first,
+        .woocommerce-account form.woocommerce-EditAddressForm .form-row-last {
+            float: none !important;
+            width: calc(50% - 10px) !important;
+            margin: 0 !important;
+        }
+
+        .woocommerce-account form.edit-account .woocommerce-form-row--wide,
+        .woocommerce-account form.woocommerce-EditAddressForm .form-row-wide {
+            float: none !important;
+            width: 100% !important;
+            margin: 0 !important;
+        }
+
+        .woocommerce-account form.edit-account em {
+            display: block;
+            margin-top: -6px;
+            font-size: 11px;
+            color: #59645b;
+            font-style: normal;
+        }
+
         .woocommerce-account form fieldset {
+            width: 100% !important;
+            float: none !important;
             border: 1px solid #dcded3;
             border-radius: 6px;
             padding: 20px 24px;
-            margin: 24px 0;
+            margin: 16px 0 8px 0 !important;
             background: #fafbfa;
+            box-sizing: border-box !important;
+        }
         }
 
         .woocommerce-account form fieldset legend {
@@ -671,6 +714,12 @@ function jonilux_estilos_mi_cuenta() {
             }
             .woocommerce-account .woocommerce-Addresses {
                 grid-template-columns: 1fr;
+            }
+            .woocommerce-account form.edit-account .woocommerce-form-row--first,
+            .woocommerce-account form.edit-account .woocommerce-form-row--last,
+            .woocommerce-account form.woocommerce-EditAddressForm .form-row-first,
+            .woocommerce-account form.woocommerce-EditAddressForm .form-row-last {
+                width: 100% !important;
             }
         }
     </style>
