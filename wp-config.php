@@ -5,7 +5,7 @@
 
 // Conexión a la base de datos de cPanel.
 define( 'DB_NAME', 'mrmendzcom_tienda_wp' );
-define( 'DB_USER', 'mrmendzcom_tienda_wp' ); // Pon aquí tu usuario MySQL de cPanel
+define( 'DB_USER', 'mrmendzcom_tienda_user' ); // Pon aquí tu usuario MySQL de cPanel
 define( 'DB_PASSWORD', 'i~puff?.~QuW%bMj' );     // Pon aquí la contraseña que creaste
 define( 'DB_HOST', 'localhost' );
 
