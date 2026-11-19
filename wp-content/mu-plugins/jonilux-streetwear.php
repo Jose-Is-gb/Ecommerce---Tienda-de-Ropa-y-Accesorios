@@ -703,6 +703,21 @@ function jonilux_streetwear_scripts() {
                 });
             });
 
+            // Corazones generados por el servidor en las tarjetas de la portada
+            document.querySelectorAll('.jx-wish').forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    toggleItem({
+                        id: this.getAttribute('data-id'),
+                        title: this.getAttribute('data-title'),
+                        price: this.getAttribute('data-price'),
+                        image: this.getAttribute('data-image'),
+                        url: this.getAttribute('data-url')
+                    });
+                });
+            });
+
             // Insertar corazones en tarjetas de catalogo si existen
             document.querySelectorAll('.lunaris-product-card, .type-product').forEach(card => {
                 const link = card.querySelector('a[href*="/product/"], a.woocommerce-LoopProduct-link');
