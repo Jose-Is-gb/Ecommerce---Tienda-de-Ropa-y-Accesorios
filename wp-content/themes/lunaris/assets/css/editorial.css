@@ -27,10 +27,10 @@
     --lunaris-line: #dcded3;
     --lunaris-accent: #c8d4af;
     --lunaris-font-body: "Lunaris Inter", Arial, sans-serif;
-    --lunaris-font-display: "Lunaris Editorial", Georgia, serif;
+    --lunaris-font-display: "Lunaris Inter", Arial, sans-serif;
 }
 body { background: var(--lunaris-paper); color: var(--lunaris-ink); font-family: var(--lunaris-font-body); font-size: 15px; line-height: 1.65; }
-h1, h2, h3 { font-family: var(--lunaris-font-display); font-weight: 400; letter-spacing: -.025em; }
+h1, h2, h3 { font-family: var(--lunaris-font-display); font-weight: 700; letter-spacing: -.03em; text-transform: uppercase; }
 a, button, input, select, textarea { -webkit-tap-highlight-color: transparent; }
 a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible { outline: 2px solid #41684e; outline-offset: 4px; }
 ::selection { background: #d2ddbf; color: #172a22; }
@@ -41,8 +41,11 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 #jonilux-promo-topbar { background: #172a22 !important; border: 0 !important; font-family: var(--lunaris-font-body) !important; letter-spacing: .045em !important; padding: 9px 24px !important; gap: 8px 20px !important; }
 #jonilux-promo-topbar > span { font-size: 11px; }
 #jonilux-copy-coupon-btn { border-radius: 3px !important; letter-spacing: .06em !important; padding: 4px 10px !important; }
-.lunaris-header { background: var(--lunaris-paper); padding: 24px clamp(24px,5vw,76px) !important; border-bottom: 1px solid var(--lunaris-line); }
-.wp-block-group.lunaris-header-inner { display: grid; grid-template-columns: auto minmax(0,1fr) auto auto; gap: 24px; max-width: 1400px; align-items: center; }
+.lunaris-header { background: var(--lunaris-paper); padding: 20px clamp(20px,5vw,70px) !important; border-bottom: 1px solid var(--lunaris-line); }
+.wp-block-group.lunaris-header-inner { display: grid; grid-template-columns: auto minmax(0,1fr) auto auto auto; gap: 16px; max-width: 1400px; align-items: center; }
+.jonilux-header-icon-btn { position: relative; background: transparent; border: none; cursor: pointer; padding: 10px; display: inline-flex; align-items: center; justify-content: center; color: var(--lunaris-ink); border-radius: 6px; transition: background .18s ease; }
+.jonilux-header-icon-btn:hover { background: #eef1e6; }
+.jonilux-wishlist-badge { position: absolute; top: 4px; right: 4px; background: #111614; color: #ffffff; font-size: 9px; font-weight: 700; min-width: 16px; height: 16px; border-radius: 50%; display: flex; align-items: center; justify-content: center; line-height: 1; }
 .lunaris-logo { font-family: var(--lunaris-font-body); font-size: 26px !important; font-weight: 600 !important; letter-spacing: .2em; }
 .lunaris-header .lunaris-nav { justify-self: center; font-family: var(--lunaris-font-body); font-size: 11px; font-weight: 500; letter-spacing: .07em; }
 .lunaris-header .wp-block-navigation__container { gap: 24px; }
@@ -60,7 +63,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 .lunaris-hero-copy { width: auto; min-width: 0; padding: 12px 0; }
 .lunaris-eyebrow { color: #56674e; font: 500 11px/1.5 var(--lunaris-font-body); letter-spacing: .13em; text-transform: uppercase; margin-bottom: 20px; }
 .lunaris-hero-copy .lunaris-eyebrow { display: flex; align-items: center; gap: 12px; }
-.lunaris-hero h1 { color: var(--lunaris-ink); font-family: var(--lunaris-font-display); font-size: clamp(68px,7.4vw,112px); font-weight: 400; line-height: .98; letter-spacing: -.045em; margin: 0 0 28px; }
+.lunaris-hero h1 { color: var(--lunaris-ink); font-family: var(--lunaris-font-display); font-size: clamp(54px,6.8vw,96px); font-weight: 800; line-height: .96; letter-spacing: -.035em; text-transform: uppercase; margin: 0 0 24px; }
 .lunaris-hero h1 span { color: #4e694d; font-style: italic; }
 .lunaris-hero-copy > p:not(.lunaris-eyebrow) { color: var(--lunaris-muted); font-size: 15px; line-height: 1.85; max-width: 370px; margin-bottom: 28px; }
 .lunaris-hero-buttons { display: flex; align-items: center; gap: 12px; margin: 0; }
