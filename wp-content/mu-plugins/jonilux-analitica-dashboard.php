@@ -163,6 +163,8 @@ function jonilux_render_syllabus_extensions_footer() {
             // Logica Multi-moneda PEN <-> USD universal (Catálogo, Ficha, Carrito Blocks, Checkout Blocks, Mini-Cart y Wishlist)
             var curBtn = document.getElementById('jx-currency-toggle');
             var isConverting = false;
+            var priceObserver = null;
+            var debounceTimer = null;
 
             function getActiveCurrency() {
                 try {
@@ -186,7 +188,9 @@ function jonilux_render_syllabus_extensions_footer() {
                     var parsed = parseFloat(matchPen[1].replace(/,/g, ''));
                     if (!isNaN(parsed) && parsed >= 0) {
                         rawAttr = parsed.toFixed(2);
-                        el.setAttribute('data-pen-raw', rawAttr);
+                        if (el.getAttribute('data-pen-raw') !== rawAttr) {
+                            el.setAttribute('data-pen-raw', rawAttr);
+                        }
                     }
                 } else if (!rawAttr) {
                     var matchUsd = text.match(/USD\s*\$\s*([\d,]+(?:\.\d{1,2})?)/);
@@ -194,7 +198,9 @@ function jonilux_render_syllabus_extensions_footer() {
                         var parsedUsd = parseFloat(matchUsd[1].replace(/,/g, ''));
                         if (!isNaN(parsedUsd)) {
                             rawAttr = (parsedUsd * RATE_USD).toFixed(2);
-                            el.setAttribute('data-pen-raw', rawAttr);
+                            if (el.getAttribute('data-pen-raw') !== rawAttr) {
+                                el.setAttribute('data-pen-raw', rawAttr);
+                            }
                         }
                     }
                 }
@@ -215,6 +221,9 @@ function jonilux_render_syllabus_extensions_footer() {
             function applyCurrency(cur) {
                 if (isConverting) return;
                 isConverting = true;
+                if (priceObserver) {
+                    priceObserver.disconnect();
+                }
                 try {
                     var selectors = [
                         '.woocommerce-Price-amount bdi',
@@ -238,12 +247,16 @@ function jonilux_render_syllabus_extensions_footer() {
                     }
 
                     if (curBtn) {
-                        curBtn.textContent = cur === 'USD' ? '$ USD' : 'S/ PEN';
+                        var btnText = cur === 'USD' ? '$ USD' : 'S/ PEN';
+                        if (curBtn.textContent !== btnText) curBtn.textContent = btnText;
                         curBtn.classList.toggle('is-usd', cur === 'USD');
                     }
                     try { localStorage.setItem('jonilux_currency', cur); } catch(e) {}
                 } finally {
                     isConverting = false;
+                    if (priceObserver) {
+                        priceObserver.observe(document.body, { childList: true, subtree: true });
+                    }
                 }
             }
 
@@ -254,14 +267,16 @@ function jonilux_render_syllabus_extensions_footer() {
                 });
             }
 
-            // Aplicar al inicio y observar cambios dinamicos de React en Carrito / Checkout / Mini-Cart
-            applyCurrency(getActiveCurrency());
-            var priceObserver = new MutationObserver(function() {
+            // Aplicar al inicio y observar cambios dinamicos de React en Carrito / Checkout / Mini-Cart sin bucles infinitos
+            priceObserver = new MutationObserver(function() {
                 if (getActiveCurrency() === 'USD' && !isConverting) {
-                    applyCurrency('USD');
+                    clearTimeout(debounceTimer);
+                    debounceTimer = setTimeout(function() {
+                        applyCurrency('USD');
+                    }, 120);
                 }
             });
-            priceObserver.observe(document.body, { childList: true, subtree: true });
+            applyCurrency(getActiveCurrency());
 
             // Logica Modal Rastreador Logistico (Semana 7)
             var trackModal = document.getElementById('jx-track-modal');
