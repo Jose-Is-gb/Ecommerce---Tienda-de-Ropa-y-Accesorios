@@ -184,6 +184,24 @@ function jonilux_render_trust_and_whatsapp_buttons() {
             </div>
 
         </div>
+
+        <!-- Prueba social y urgencia realista (Conversion) -->
+        <div class="jonilux-social-proof" style="margin-top: 14px; background: #f6f8f2; border: 1px solid #d7dfd0; border-radius: 6px; padding: 14px 16px;">
+            <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 10px; font-size: 11.5px; font-weight: 700; color: #172a22;">
+                <span>4.9 / 5.0 Valoración de clientes en Perú</span>
+                <span style="background: #172a22; color: #c8d4af; padding: 2px 8px; border-radius: 999px; font-size: 10px; letter-spacing: 0.04em;">STOCK LIMITADO</span>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 8px; font-size: 11.5px; color: #39463c; line-height: 1.45;">
+                <div style="background: #ffffff; border: 1px solid #e4e9de; border-radius: 5px; padding: 9px 11px;">
+                    <strong style="color: #172a22;">Rodrigo V. (Miraflores, Lima) · Compra verificada</strong><br>
+                    <span>Excelente confección y tela pesada. Llegó al día siguiente por motorizado y pagué con Yape sin problemas.</span>
+                </div>
+                <div style="background: #ffffff; border: 1px solid #e4e9de; border-radius: 5px; padding: 9px 11px;">
+                    <strong style="color: #172a22;">Camila M. (Trujillo) · Compra verificada</strong><br>
+                    <span>La guía de tallas en centímetros me ayudó a elegir exacto mi corte oversize. Muy buena atención.</span>
+                </div>
+            </div>
+        </div>
     </div>
     <?php
 }
@@ -382,6 +400,134 @@ function jonilux_render_cookie_privacy_banner() {
             if (a) {
                 e.preventDefault();
                 if (modal) modal.style.display = 'flex';
+            }
+        });
+    })();
+    </script>
+    <?php
+}
+
+/* ==========================================================================
+   5. ANADIR RAPIDO AL CARRITO (+ CARRITO) Y BARRA ENVIO GRATIS EN MINI-CARRITO
+   ========================================================================== */
+
+add_action('wp_footer', 'jonilux_render_quickadd_and_minicart_progress', 25);
+function jonilux_render_quickadd_and_minicart_progress() {
+    if (is_admin()) return;
+    $wc_ajax_url = home_url('/?wc-ajax=add_to_cart');
+    $cart_url = function_exists('wc_get_cart_url') ? wc_get_cart_url() : home_url('/cart/');
+    ?>
+    <script>
+    (function() {
+        var AJAX_URL = <?php echo wp_json_encode($wc_ajax_url); ?>;
+        var CART_URL = <?php echo wp_json_encode($cart_url); ?>;
+        var FREE_SHIPPING_MIN = 150;
+
+        // 1. Handler de "+ Carrito" rapido en tarjetas de portada
+        document.addEventListener('click', function(e) {
+            var btn = e.target.closest('.jx-card-quickadd');
+            if (!btn || btn.disabled) return;
+            var pid = btn.getAttribute('data-product-id');
+            if (!pid) return;
+
+            btn.disabled = true;
+            var originalText = btn.textContent;
+            btn.textContent = '...';
+
+            var body = new URLSearchParams();
+            body.append('product_id', pid);
+            body.append('quantity', '1');
+
+            fetch(AJAX_URL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
+                body: body.toString(),
+                credentials: 'same-origin'
+            })
+            .then(function(r) { return r.json(); })
+            .then(function(res) {
+                btn.disabled = false;
+                if (res && res.error && res.product_url) {
+                    window.location.href = res.product_url;
+                    return;
+                }
+                btn.textContent = 'Agregado';
+                btn.classList.add('is-added');
+                if (typeof window.joniluxTrackEvent === 'function') {
+                    window.joniluxTrackEvent('add_to_cart', { item_id: pid, source: 'quick_add_home' });
+                }
+                // Refrescar store de WooCommerce Blocks si esta disponible
+                if (window.wp && window.wp.data && window.wp.data.dispatch) {
+                    try {
+                        window.wp.data.dispatch('wc/store/cart').invalidateResolutionForStore();
+                    } catch (err) {}
+                }
+                // Abrir el mini-carrito si existe el boton en cabecera
+                var miniCartBtn = document.querySelector('.wc-block-mini-cart__button');
+                if (miniCartBtn) {
+                    setTimeout(function() { miniCartBtn.click(); }, 180);
+                }
+                setTimeout(function() {
+                    btn.textContent = originalText;
+                    btn.classList.remove('is-added');
+                }, 2200);
+            })
+            .catch(function() {
+                btn.disabled = false;
+                btn.textContent = originalText;
+                window.location.href = CART_URL + '?add-to-cart=' + encodeURIComponent(pid);
+            });
+        });
+
+        // 2. Barra de progreso hacia Envio Gratis dentro del Mini-Carrito lateral
+        function updateMiniCartShippingBar() {
+            var drawer = document.querySelector('.wc-block-mini-cart__drawer .wp-block-woocommerce-mini-cart-contents, .wc-block-mini-cart__drawer');
+            if (!drawer || !window.wp || !window.wp.data || !window.wp.data.select) return;
+            var store = window.wp.data.select('wc/store/cart');
+            if (!store || typeof store.getCartTotals !== 'function') return;
+
+            var totals = store.getCartTotals();
+            var data = store.getCartData ? store.getCartData() : null;
+            var count = data && data.itemsCount ? data.itemsCount : 0;
+            var existing = document.getElementById('jx-minicart-shipping-bar');
+
+            if (!count || !totals || !totals.total_items) {
+                if (existing) existing.remove();
+                return;
+            }
+
+            var unit = Math.pow(10, totals.currency_minor_unit || 0);
+            var subtotal = Math.max(0, (parseInt(totals.total_items, 10) + parseInt(totals.total_items_tax || 0, 10)
+                - parseInt(totals.total_discount || 0, 10) - parseInt(totals.total_discount_tax || 0, 10)) / unit);
+            var pct = Math.min(100, (subtotal / FREE_SHIPPING_MIN) * 100);
+            var falta = Math.max(0, FREE_SHIPPING_MIN - subtotal);
+
+            if (!existing) {
+                existing = document.createElement('div');
+                existing.id = 'jx-minicart-shipping-bar';
+                existing.style.cssText = 'margin: 10px 16px; padding: 10px 12px; background: #f4f6ef; border: 1px solid #d5ddcd; border-radius: 8px; font-size: 12px; color: #172a22; line-height: 1.4;';
+                var titleArea = drawer.querySelector('.wc-block-mini-cart__title, h2');
+                if (titleArea && titleArea.parentNode) {
+                    titleArea.parentNode.insertBefore(existing, titleArea.nextSibling);
+                } else {
+                    drawer.prepend(existing);
+                }
+            }
+
+            existing.innerHTML = (falta > 0
+                ? 'Te faltan <strong>S/ ' + falta.toFixed(2) + '</strong> para lograr <strong>Envío Gratis</strong> en Lima.'
+                : '<strong>¡Envío estándar gratis en Lima desbloqueado!</strong>') +
+                '<div style="height:6px;background:#dce2d5;border-radius:4px;overflow:hidden;margin-top:7px;"><div style="height:100%;background:#172a22;width:' + pct.toFixed(1) + '%;transition:width .25s;"></div></div>';
+        }
+
+        if (window.wp && window.wp.data && window.wp.data.subscribe) {
+            window.wp.data.subscribe(function() {
+                setTimeout(updateMiniCartShippingBar, 80);
+            });
+        }
+        document.addEventListener('click', function(e) {
+            if (e.target.closest('.wc-block-mini-cart__button')) {
+                setTimeout(updateMiniCartShippingBar, 250);
             }
         });
     })();

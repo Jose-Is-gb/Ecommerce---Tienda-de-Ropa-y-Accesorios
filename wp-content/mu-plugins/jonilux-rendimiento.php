@@ -53,7 +53,7 @@ add_action('init', function () {
 
 // 4. Limpiar cache de portada y mega-menu automaticamente cuando se edita o crea un producto
 add_action('save_post_product', function () {
-    delete_transient('jx_home_html_v3_' . md5(home_url('/')));
+    delete_transient('jx_home_html_v4_' . md5(home_url('/')));
     delete_transient('jx_mega_groups_v1_' . md5(home_url('/')));
 });
 

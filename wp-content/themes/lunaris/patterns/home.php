@@ -6,7 +6,7 @@
  * Inserter: no
  */
 if (!defined("ABSPATH")) { exit; }
-$jx_home_cache_key = 'jx_home_html_v3_' . md5(home_url('/'));
+$jx_home_cache_key = 'jx_home_html_v4_' . md5(home_url('/'));
 $jx_home_cached = get_transient($jx_home_cache_key);
 if (is_string($jx_home_cached) && $jx_home_cached !== '' && empty($_GET['nocache'])) {
     echo "<!-- wp:html -->\n" . $jx_home_cached . "\n<!-- /wp:html -->";
@@ -221,6 +221,50 @@ $banners = [
     <?php jx_render_row('coleccion-hombre', 'Ropa de hombre', $hombre_products, $hombre_url, 'Polos, hoodies, camisas y pantalones.'); ?>
     <?php jx_render_row('coleccion-mujer', 'Ropa de mujer', $mujer_products, $mujer_url, 'Tops, vestidos, faldas y cardigans.'); ?>
     <?php jx_render_row('accesorios', 'Accesorios y calzado', $acc_products, $acc_url, 'Gorras, bolsos, joyería, relojes y zapatillas.'); ?>
+
+    <section class="jx-looks jx-panel" id="lookbook" aria-labelledby="lookbook-title">
+        <div class="jx-row-head">
+            <div class="jx-row-titles">
+                <h2 id="lookbook-title">Úsalo así · Streetwear Looks</h2>
+                <p>Combinaciones armadas por nuestro equipo para tu outfit diario.</p>
+            </div>
+            <a class="jx-row-all" href="<?php echo esc_url($shop); ?>">Ver todo el catálogo</a>
+        </div>
+        <div class="jx-looks-grid">
+            <a class="jx-look-card" href="<?php echo esc_url(jx_term_url('hoodies-y-sudaderas')); ?>">
+                <img src="<?php echo esc_url($base . 'men.webp'); ?>" alt="Outfit urbano con hoodie oversize" loading="lazy">
+                <div class="jx-look-info">
+                    <span>LOOK URBANO 01</span>
+                    <strong>Hoodie Oversize + Cargo</strong>
+                    <em>Comprar este estilo</em>
+                </div>
+            </a>
+            <a class="jx-look-card" href="<?php echo esc_url(jx_term_url('polos-y-camisetas')); ?>">
+                <img src="<?php echo esc_url($base . 'hero.webp'); ?>" alt="Look streetwear con polo heavyweight" loading="lazy">
+                <div class="jx-look-info">
+                    <span>LOOK URBANO 02</span>
+                    <strong>Polo Heavyweight + Zapatillas</strong>
+                    <em>Comprar este estilo</em>
+                </div>
+            </a>
+            <a class="jx-look-card" href="<?php echo esc_url($mujer_url); ?>">
+                <img src="<?php echo esc_url($base . 'women.webp'); ?>" alt="Outfit femenino contemporáneo" loading="lazy">
+                <div class="jx-look-info">
+                    <span>LOOK URBANO 03</span>
+                    <strong>Tops, Vestidos y Capas</strong>
+                    <em>Comprar este estilo</em>
+                </div>
+            </a>
+            <a class="jx-look-card" href="<?php echo esc_url($acc_url); ?>">
+                <img src="<?php echo esc_url($base . 'accessories.webp'); ?>" alt="Accesorios y calzado JONILUX" loading="lazy">
+                <div class="jx-look-info">
+                    <span>COMPLEMENTOS 04</span>
+                    <strong>Gorras, Bolsos y Calzado</strong>
+                    <em>Comprar este estilo</em>
+                </div>
+            </a>
+        </div>
+    </section>
 
     <section class="jx-story jx-panel" id="lunaris" aria-labelledby="story-title">
         <div>

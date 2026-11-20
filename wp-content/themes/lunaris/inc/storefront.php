@@ -178,7 +178,12 @@ function jx_render_product_card($product) {
                 <?php endif; ?>
             </div>
             <div class="jx-card-price"><?php echo wp_kses_post($price_html); ?></div>
-            <a class="jx-card-btn" href="<?php echo esc_url($url); ?>">Ver producto</a>
+            <div class="jx-card-actions">
+                <a class="jx-card-btn" href="<?php echo esc_url($url); ?>">Ver producto</a>
+                <?php if ($product->is_type('simple') && $product->is_purchasable() && $product->is_in_stock()) : ?>
+                    <button type="button" class="jx-card-quickadd" data-product-id="<?php echo (int) $pid; ?>" aria-label="<?php echo esc_attr('Añadir al carrito: ' . $title); ?>">+ Carrito</button>
+                <?php endif; ?>
+            </div>
         </div>
     </article>
     <?php
