@@ -154,50 +154,114 @@ function jonilux_render_syllabus_extensions_footer() {
                 util.innerHTML = `
                     <button type="button" id="jx-track-open-btn" class="jx-track-trigger-btn" title="Rastrear pedido en vivo">Rastrear Pedido</button>
                     <button type="button" id="jx-currency-toggle" class="jx-currency-btn" title="Cambiar moneda PEN / USD (Internacionalización)">S/ PEN</button>
-                    <a href="<?php echo esc_url($dashboard_url); ?>" class="jx-kpi-trigger-btn" title="Abrir Cuadro de Mando de Analítica Web">KPIs</a>
                 `;
                 var note = catbar.querySelector('.jx-catbar-note');
                 if (note) note.style.display = 'none';
                 catbar.appendChild(util);
             }
 
-            // Logica Multi-moneda PEN <-> USD (Semana 4: Internacionalizacion)
+            // Logica Multi-moneda PEN <-> USD universal (Catálogo, Ficha, Carrito Blocks, Checkout Blocks, Mini-Cart y Wishlist)
             var curBtn = document.getElementById('jx-currency-toggle');
-            function applyCurrency(cur) {
-                var nodes = document.querySelectorAll('.woocommerce-Price-amount bdi, .woocommerce-Price-amount');
-                nodes.forEach(function(n) {
-                    if (n.children.length > 0 && n.tagName !== 'BDI') return;
-                    if (!n.getAttribute('data-pen-raw')) {
-                        var txt = n.textContent.replace(/[^\d.]/g, '');
-                        var val = parseFloat(txt);
-                        if (!isNaN(val) && val > 0) {
-                            n.setAttribute('data-pen-raw', val.toFixed(2));
+            var isConverting = false;
+
+            function getActiveCurrency() {
+                try {
+                    return localStorage.getItem('jonilux_currency') === 'USD' ? 'USD' : 'PEN';
+                } catch(e) {
+                    return 'PEN';
+                }
+            }
+
+            function convertPriceElement(el, cur) {
+                // Ignorar contenedores que tienen sub-elementos de precio internos para no borrar su HTML
+                if (el.querySelector('.woocommerce-Price-amount, .wc-block-components-formatted-money-amount, bdi')) {
+                    return;
+                }
+                var rawAttr = el.getAttribute('data-pen-raw');
+                var text = (el.textContent || '').trim();
+
+                // Si React re-renderizo el nodo en Soles ("S/ 69.00"), actualizar data-pen-raw
+                var matchPen = text.match(/S\/\s*([\d,]+(?:\.\d{1,2})?)/);
+                if (matchPen) {
+                    var parsed = parseFloat(matchPen[1].replace(/,/g, ''));
+                    if (!isNaN(parsed) && parsed >= 0) {
+                        rawAttr = parsed.toFixed(2);
+                        el.setAttribute('data-pen-raw', rawAttr);
+                    }
+                } else if (!rawAttr) {
+                    var matchUsd = text.match(/USD\s*\$\s*([\d,]+(?:\.\d{1,2})?)/);
+                    if (matchUsd) {
+                        var parsedUsd = parseFloat(matchUsd[1].replace(/,/g, ''));
+                        if (!isNaN(parsedUsd)) {
+                            rawAttr = (parsedUsd * RATE_USD).toFixed(2);
+                            el.setAttribute('data-pen-raw', rawAttr);
                         }
                     }
-                    var pen = parseFloat(n.getAttribute('data-pen-raw'));
-                    if (isNaN(pen)) return;
-                    if (cur === 'USD') {
-                        n.textContent = 'USD $ ' + (pen / RATE_USD).toFixed(2);
-                    } else {
-                        n.textContent = 'S/ ' + pen.toFixed(2);
-                    }
-                });
-                if (curBtn) {
-                    curBtn.textContent = cur === 'USD' ? '$ USD' : 'S/ PEN';
-                    curBtn.classList.toggle('is-usd', cur === 'USD');
                 }
-                try { localStorage.setItem('jonilux_currency', cur); } catch(e) {}
+
+                if (!rawAttr) return;
+                var penVal = parseFloat(rawAttr);
+                if (isNaN(penVal)) return;
+
+                var expected = cur === 'USD'
+                    ? 'USD $ ' + (penVal / RATE_USD).toFixed(2)
+                    : 'S/ ' + penVal.toFixed(2);
+
+                if (el.textContent.trim() !== expected) {
+                    el.textContent = expected;
+                }
+            }
+
+            function applyCurrency(cur) {
+                if (isConverting) return;
+                isConverting = true;
+                try {
+                    var selectors = [
+                        '.woocommerce-Price-amount bdi',
+                        '.woocommerce-Price-amount',
+                        '.wc-block-components-formatted-money-amount',
+                        '.wc-block-components-product-price__value',
+                        '.wc-block-cart-item__total-price-and-sale-badge-wrapper .wc-block-components-formatted-money-amount',
+                        '.wc-block-components-totals-item__value',
+                        '.jonilux-wishlist-item-price',
+                        '.jonilux-outfit-price'
+                    ].join(', ');
+
+                    document.querySelectorAll(selectors).forEach(function(el) {
+                        convertPriceElement(el, cur);
+                    });
+
+                    // Actualizar barra de envio gratis en carrito si existe
+                    var envioBar = document.querySelector('.jonilux-envio strong');
+                    if (envioBar) {
+                        convertPriceElement(envioBar, cur);
+                    }
+
+                    if (curBtn) {
+                        curBtn.textContent = cur === 'USD' ? '$ USD' : 'S/ PEN';
+                        curBtn.classList.toggle('is-usd', cur === 'USD');
+                    }
+                    try { localStorage.setItem('jonilux_currency', cur); } catch(e) {}
+                } finally {
+                    isConverting = false;
+                }
             }
 
             if (curBtn) {
                 curBtn.addEventListener('click', function() {
-                    var current = localStorage.getItem('jonilux_currency') === 'USD' ? 'PEN' : 'USD';
-                    applyCurrency(current);
+                    var nextCur = getActiveCurrency() === 'USD' ? 'PEN' : 'USD';
+                    applyCurrency(nextCur);
                 });
             }
-            if (localStorage.getItem('jonilux_currency') === 'USD') {
-                applyCurrency('USD');
-            }
+
+            // Aplicar al inicio y observar cambios dinamicos de React en Carrito / Checkout / Mini-Cart
+            applyCurrency(getActiveCurrency());
+            var priceObserver = new MutationObserver(function() {
+                if (getActiveCurrency() === 'USD' && !isConverting) {
+                    applyCurrency('USD');
+                }
+            });
+            priceObserver.observe(document.body, { childList: true, subtree: true });
 
             // Logica Modal Rastreador Logistico (Semana 7)
             var trackModal = document.getElementById('jx-track-modal');

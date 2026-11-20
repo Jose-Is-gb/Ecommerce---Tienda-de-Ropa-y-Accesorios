@@ -314,11 +314,13 @@ function jonilux_render_interactive_checkout_gateway_widget() {
 
         function tryMountSuite() {
             if (document.getElementById('jx-pay-suite')) return;
-            // Buscar contenedor de BACS en Checkout por Bloques o Checkout Clasico
+            // Buscar contenedor de pagos en Checkout por Bloques o Checkout Clasico
             var target = document.querySelector(
                 '#radio-control-wc-payment-method-options-bacs__content, ' +
                 '.payment_box.payment_method_bacs, ' +
-                '.wc-block-components-payment-method-options'
+                '.wp-block-woocommerce-checkout-payment-block, ' +
+                '.wc-block-components-payment-method-options, ' +
+                '#payment'
             );
             if (!target) return;
             var wrap = document.createElement('div');

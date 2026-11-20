@@ -12,7 +12,7 @@ defined('ABSPATH') || exit;
    1. NORMALIZACION DE PRECIOS: ELIMINAR PRECIOS TACHADOS Y BADGES DE LIQUIDACION
    ========================================================================== */
 
-// Mostrar unicamente el precio activo limpio en todo WooCommerce
+// Mostrar unicamente el precio activo limpio en todo WooCommerce (incluyendo bloques React de Carrito y Checkout)
 add_filter('woocommerce_get_price_html', 'jonilux_normalizar_precios_html', 99, 2);
 function jonilux_normalizar_precios_html($price_html, $product) {
     if (!$product) {
@@ -21,7 +21,24 @@ function jonilux_normalizar_precios_html($price_html, $product) {
     return wc_price($product->get_price());
 }
 
-// Ocultar distintivos de oferta en catalogo y fichas
+// Igualar regular_price al precio activo en frontend para que Cart/Checkout Blocks no muestre "Ahorra S/ XX"
+add_filter('woocommerce_product_get_regular_price', function ($regular_price, $product) {
+    if (!is_admin() && $product && $product->get_price() !== '') {
+        return $product->get_price();
+    }
+    return $regular_price;
+}, 99, 2);
+add_filter('woocommerce_product_variation_get_regular_price', function ($regular_price, $product) {
+    if (!is_admin() && $product && $product->get_price() !== '') {
+        return $product->get_price();
+    }
+    return $regular_price;
+}, 99, 2);
+add_filter('woocommerce_product_is_on_sale', function ($on_sale) {
+    return is_admin() ? $on_sale : false;
+}, 99);
+
+// Ocultar distintivos de oferta en catalogo, fichas y bloques de carrito
 add_filter('woocommerce_sale_flash', '__return_empty_string', 99);
 
 // Reglas de estilo para suprimir precios tachados y asegurar jerarquia visual ordenada
@@ -33,6 +50,8 @@ add_action('wp_head', function () {
         del,
         .wc-block-components-product-sale-badge,
         .wc-block-product-sale-badge,
+        .wc-block-components-sale-badge,
+        .wc-block-components-product-price__regular,
         .woocommerce-badge--sale,
         .onsale,
         .is-on-sale-badge {

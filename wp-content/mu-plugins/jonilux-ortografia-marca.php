@@ -21,6 +21,11 @@ function jonilux_reparar_texto($text) {
     $text = str_replace('LUNARIS', 'JONILUX', $text);
     $text = str_replace('Lunaris', 'Jonilux', $text);
     $text = str_replace(['My account', 'My Account'], 'Mi cuenta', $text);
+    if (trim($text) === 'Cart' || trim($text) === 'CART') {
+        $text = 'Carrito de compras';
+    } elseif (trim($text) === 'Checkout' || trim($text) === 'CHECKOUT') {
+        $text = 'Finalizar compra';
+    }
 
     // 2. Mapeo de secuencias mojibake de codepages comunes (CP437, Latin1, UTF-8 mal interpretado)
     $mojibake = [
