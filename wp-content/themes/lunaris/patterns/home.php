@@ -6,6 +6,12 @@
  * Inserter: no
  */
 if (!defined("ABSPATH")) { exit; }
+$jx_home_cache_key = 'jx_home_html_v3_' . md5(home_url('/'));
+$jx_home_cached = get_transient($jx_home_cache_key);
+if (is_string($jx_home_cached) && $jx_home_cached !== '' && empty($_GET['nocache'])) {
+    echo "<!-- wp:html -->\n" . $jx_home_cached . "\n<!-- /wp:html -->";
+    return;
+}
 $base = get_stylesheet_directory_uri() . "/assets/images/";
 $shop = function_exists("wc_get_page_permalink") ? wc_get_page_permalink("shop") : home_url("/shop/");
 $brand = get_bloginfo('name');
@@ -105,6 +111,7 @@ $banners = [
 ];
 ?>
 <!-- wp:html -->
+<?php ob_start(); ?>
 <main id="contenido" class="jx-home">
 
     <section class="jx-hero" aria-label="Destacados de la tienda">
@@ -227,4 +234,9 @@ $banners = [
     </section>
 
 </main>
+<?php
+$jx_home_out = ob_get_clean();
+set_transient($jx_home_cache_key, $jx_home_out, 15 * MINUTE_IN_SECONDS);
+echo $jx_home_out;
+?>
 <!-- /wp:html -->

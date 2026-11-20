@@ -21,6 +21,12 @@ function jx_term_url($slug) {
  * Categorias del menu "Todas las categorias". Se omiten las que no existen o no tienen productos.
  */
 function jx_mega_groups() {
+    $cache_key = 'jx_mega_groups_v1_' . md5(home_url('/'));
+    $cached = get_transient($cache_key);
+    if (is_array($cached)) {
+        return $cached;
+    }
+
     $groups = [
         'hombre' => ['polos-y-camisetas', 'hoodies-y-sudaderas', 'camisas', 'pantalones', 'chaquetas-y-abrigos'],
         'mujer' => ['tops-y-camisetas', 'vestidos', 'faldas', 'sweaters-y-cardigans', 'shorts'],
@@ -43,6 +49,7 @@ function jx_mega_groups() {
         }
         $out[] = ['name' => $parent->name, 'url' => jx_term_url($parent_slug), 'items' => $items];
     }
+    set_transient($cache_key, $out, 15 * MINUTE_IN_SECONDS);
     return $out;
 }
 
