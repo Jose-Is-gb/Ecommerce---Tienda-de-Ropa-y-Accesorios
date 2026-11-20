@@ -51,8 +51,8 @@ $slides = [
 ];
 
 $circle_slugs = [
-    'hombre', 'mujer', 'accesorios', 'polos-y-camisetas', 'hoodies-y-sudaderas', 'pantalones',
-    'vestidos', 'gorras-y-gorros', 'bolsos-y-carteras', 'joyeria-y-pulseras', 'zapatillas',
+    'polos-y-camisetas', 'hoodies-y-sudaderas', 'pantalones', 'vestidos',
+    'zapatillas', 'gorras-y-gorros', 'bolsos-y-carteras', 'joyeria-y-pulseras',
 ];
 $circles = [];
 foreach ($circle_slugs as $slug) {
