@@ -33,16 +33,24 @@ function jonilux_ga4_print_tag() {
     <script>
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
+        var hasAnalyticsConsent = document.cookie.indexOf('jonilux_cookie_consent=essential') === -1;
+        gtag('consent', 'default', {
+            'analytics_storage': hasAnalyticsConsent ? 'granted' : 'denied',
+            'ad_storage': hasAnalyticsConsent ? 'granted' : 'denied'
+        });
         gtag('js', new Date());
         gtag('config', '<?php echo esc_js($measurement_id); ?>', {
             'currency': 'PEN',
             'site_brand': 'JONILUX'
         });
 
-        // Registro de eventos locales para el Cuadro de Mando (Dashboard) y GA4
+        // Registro de eventos locales para el Cuadro de Mando (Dashboard) y GA4 (respeta consentimiento de cookies)
         window.joniluxTrackEvent = function(eventName, params) {
             params = params || {};
             try {
+                if (localStorage.getItem('jonilux_cookie_consent') === 'essential') {
+                    return;
+                }
                 gtag('event', eventName, params);
                 var stats = JSON.parse(localStorage.getItem('jonilux_ga4_events_log') || '{}');
                 stats[eventName] = (stats[eventName] || 0) + 1;

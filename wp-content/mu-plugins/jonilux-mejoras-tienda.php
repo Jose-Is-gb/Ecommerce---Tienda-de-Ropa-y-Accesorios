@@ -215,57 +215,87 @@ function jonilux_inject_single_product_trust_script() {
 
 
 /* ==========================================================================
-   4. GESTOR DE CONSENTIMIENTO DE COOKIES Y DATOS (LEY 29733 + GA4)
+   4. GESTOR DE CONSENTIMIENTO DE COOKIES ESTILO RIPLEY (FUNCIONAL + LEY 29733 + GA4)
    ========================================================================== */
 
 add_action('wp_footer', 'jonilux_render_cookie_privacy_banner');
 function jonilux_render_cookie_privacy_banner() {
-    $privacidad_url = home_url('/politica-de-privacidad/');
+    if (is_admin()) return;
+    $home_url = home_url('/');
     ?>
-    <button type="button" id="jonilux-cookie-reopen" title="Configurar preferencias de cookies" aria-label="Configurar preferencias de cookies" style="position: fixed; bottom: 18px; left: 76px; z-index: 9998; background: #172a22; color: #e8eee0; border: 1px solid rgba(255,255,255,0.18); border-radius: 999px; padding: 7px 13px; font: 700 10px/1 Arial, sans-serif; letter-spacing: 0.08em; text-transform: uppercase; cursor: pointer; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">
-        Cookies
-    </button>
+    <!-- Barra inferior de Cookies de ancho completo estilo Ripley -->
+    <div id="jonilux-cookie-banner" role="dialog" aria-labelledby="jonilux-cookie-title" style="display: none; position: fixed; bottom: 0; left: 0; right: 0; width: 100%; background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(8px); border-top: 1px solid #d9dfd3; padding: 18px 24px 20px; box-shadow: 0 -8px 28px rgba(0, 0, 0, 0.10); z-index: 99999; font-family: var(--lunaris-font-body, Arial, sans-serif); text-align: center; box-sizing: border-box;">
+        <div style="max-width: 980px; margin: 0 auto;">
+            <div id="jonilux-cookie-title" style="font-weight: 800; font-size: 13px; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 8px; color: #2b332e;">
+                USO DE COOKIES
+            </div>
+            <p style="margin: 0 auto 14px; font-size: 13px; line-height: 1.55; color: #4a544d; max-width: 860px;">
+                Usamos cookies propias y de terceros para funciones esenciales de este sitio, analizar el tráfico de la web y mejorar tu experiencia al navegar por <a href="<?php echo esc_url($home_url); ?>" style="color: #172a22; font-weight: 700; text-decoration: underline;">Jonilux.com</a>. Revisa nuestro <a href="#aviso-cookies" id="jonilux-open-cookie-notice" style="color: #172a22; font-weight: 700; text-decoration: underline;">Aviso de Cookies</a> para obtener más información o configurar tus preferencias.
+            </p>
+            <div style="display: flex; align-items: center; justify-content: center; gap: 12px; flex-wrap: wrap;">
+                <button type="button" id="jonilux-accept-cookie-btn" style="background: #172a22; color: #ffffff; border: none; padding: 10px 38px; border-radius: 6px; font-size: 13.5px; font-weight: 700; cursor: pointer; transition: background 0.2s, transform 0.15s; box-shadow: 0 4px 12px rgba(23, 42, 34, 0.22);">
+                    Aceptar
+                </button>
+            </div>
+        </div>
+    </div>
 
-    <div id="jonilux-cookie-banner" role="dialog" aria-labelledby="jonilux-cookie-title" style="display: none; position: fixed; bottom: 20px; left: 20px; right: 20px; max-width: 520px; background: #ffffff; border: 1.5px solid #172a22; border-radius: 12px; padding: 22px 24px; box-shadow: 0 16px 40px rgba(0,0,0,0.18); z-index: 99999; font-family: Arial, sans-serif; font-size: 12.5px; line-height: 1.55; color: #17211a;">
-        <div id="jonilux-cookie-title" style="font-weight: 800; font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 8px; color: #172a22; display: flex; align-items: center; justify-content: space-between; gap: 8px;">
-            <span style="display: inline-flex; align-items: center; gap: 8px;">
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
-                <span>Privacidad y Uso de Cookies (Ley N° 29733)</span>
-            </span>
-        </div>
-        <p style="margin: 0 0 12px 0; color: #4e5a50;">
-            En <strong>JONILUX</strong> utilizamos cookies propias y de terceros para el funcionamiento del carrito, recordar tus favoritos y medir el rendimiento comercial con Google Analytics 4. Consulta nuestra <a href="<?php echo esc_url($privacidad_url); ?>" style="color: #172a22; font-weight: 700; text-decoration: underline;">Política de Privacidad</a>.
-        </p>
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 14px; padding: 10px 12px; background: #f4f6ef; border-radius: 8px; font-size: 11.5px;">
-            <label style="display: flex; align-items: center; gap: 6px; font-weight: 700; color: #172a22;">
-                <input type="checkbox" checked disabled> Técnicas y Carrito (Obligatorias)
-            </label>
-            <label style="display: flex; align-items: center; gap: 6px; font-weight: 600; color: #172a22; cursor: pointer;">
-                <input type="checkbox" id="jonilux-cookie-ga4" checked> Analítica Web (GA4)
-            </label>
-        </div>
-        <div style="display: flex; flex-wrap: wrap; gap: 8px;">
-            <button type="button" id="jonilux-accept-cookie-btn" style="background: #172a22; color: #ffffff; border: none; padding: 10px 18px; border-radius: 6px; font-size: 11px; font-weight: 700; letter-spacing: 0.08em; cursor: pointer; text-transform: uppercase;">
-                Aceptar todas
-            </button>
-            <button type="button" id="jonilux-save-cookie-btn" style="background: #eef1e6; color: #172a22; border: 1px solid #c5cdc0; padding: 10px 14px; border-radius: 6px; font-size: 11px; font-weight: 700; letter-spacing: 0.06em; cursor: pointer; text-transform: uppercase;">
-                Guardar selección
-            </button>
-            <button type="button" id="jonilux-essential-cookie-btn" style="background: transparent; color: #526154; border: none; padding: 10px 10px; font-size: 11px; font-weight: 600; cursor: pointer; text-decoration: underline;">
-                Solo necesarias
-            </button>
+    <!-- Modal funcional de "Aviso de Cookies" y configuracion real de Consentimiento (GA4 + Tecnicas) -->
+    <div id="jonilux-cookie-modal" role="dialog" aria-modal="true" aria-labelledby="jonilux-cookie-modal-title" style="display: none; position: fixed; inset: 0; background: rgba(17, 22, 20, 0.65); z-index: 100000; align-items: center; justify-content: center; padding: 20px; font-family: var(--lunaris-font-body, Arial, sans-serif);">
+        <div style="background: #ffffff; color: #172a22; width: min(580px, 100%); border-radius: 14px; padding: 26px 28px; box-shadow: 0 24px 60px rgba(0,0,0,0.28); position: relative; max-height: 90vh; overflow-y: auto;">
+            <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #e3e8de; padding-bottom: 12px; margin-bottom: 14px;">
+                <div>
+                    <span style="font-size: 10px; font-weight: 800; letter-spacing: 0.12em; color: #56674e; text-transform: uppercase;">LEY N° 29733 – PROTECCIÓN DE DATOS PERSONALES</span>
+                    <h3 id="jonilux-cookie-modal-title" style="margin: 2px 0 0; font-size: 18px; font-weight: 800; color: #172a22;">Aviso y Configuración de Cookies</h3>
+                </div>
+                <button type="button" id="jonilux-cookie-modal-close" aria-label="Cerrar aviso de cookies" style="background: #f0f3ec; border: 0; width: 32px; height: 32px; border-radius: 50%; font-size: 18px; font-weight: 700; cursor: pointer; color: #172a22;">&times;</button>
+            </div>
+            <p style="font-size: 13px; line-height: 1.6; color: #435147; margin: 0 0 14px;">
+                En <strong>JONILUX</strong> almacenamos cookies técnicas necesarias para mantener tu sesión, carrito de compras, lista de favoritos y moneda seleccionada (`PEN`/`USD`), así como cookies analíticas para medir el tráfico real mediante <strong>Google Analytics 4 (GA4)</strong>.
+            </p>
+            <div style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 18px;">
+                <div style="padding: 12px 14px; background: #f5f7f2; border: 1px solid #dce2d6; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; gap: 12px;">
+                    <div>
+                        <strong style="display: block; font-size: 13px; color: #172a22;">1. Cookies Técnicas y E-Commerce (Siempre activas)</strong>
+                        <span style="font-size: 12px; color: #556358;">Imprescindibles para el carrito de WooCommerce (`woocommerce_cart_hash`), sesión de compra, favoritos y seguridad.</span>
+                    </div>
+                    <input type="checkbox" checked disabled style="width: 18px; height: 18px; accent-color: #172a22;">
+                </div>
+                <div style="padding: 12px 14px; background: #f5f7f2; border: 1px solid #dce2d6; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; gap: 12px;">
+                    <div>
+                        <strong style="display: block; font-size: 13px; color: #172a22;">2. Cookies de Analítica Web y Rendimiento (Google Analytics 4)</strong>
+                        <span style="font-size: 12px; color: #556358;">Permiten registrar visitas, búsquedas y eventos del embudo de conversión (`view_item`, `add_to_cart`, `purchase`).</span>
+                    </div>
+                    <input type="checkbox" id="jonilux-cookie-ga4" checked style="width: 18px; height: 18px; accent-color: #172a22; cursor: pointer;">
+                </div>
+            </div>
+            <div id="jonilux-cookie-status-msg" style="display: none; margin-bottom: 12px; padding: 8px 12px; border-radius: 6px; background: #e8f2e6; color: #172a22; font-size: 12px; font-weight: 700; text-align: center;"></div>
+            <div style="display: flex; justify-content: flex-end; gap: 10px; flex-wrap: wrap;">
+                <button type="button" id="jonilux-essential-cookie-btn" style="background: #eef1e6; color: #172a22; border: 1px solid #c5cdc0; padding: 10px 16px; border-radius: 6px; font-size: 12px; font-weight: 700; cursor: pointer;">
+                    Solo esenciales
+                </button>
+                <button type="button" id="jonilux-save-cookie-btn" style="background: #2b4638; color: #ffffff; border: none; padding: 10px 18px; border-radius: 6px; font-size: 12px; font-weight: 700; cursor: pointer;">
+                    Guardar preferencias
+                </button>
+                <button type="button" id="jonilux-modal-accept-all-btn" style="background: #172a22; color: #ffffff; border: none; padding: 10px 22px; border-radius: 6px; font-size: 12px; font-weight: 700; cursor: pointer;">
+                    Aceptar todas
+                </button>
+            </div>
         </div>
     </div>
 
     <script>
     (function() {
         var banner = document.getElementById('jonilux-cookie-banner');
-        var btnAll = document.getElementById('jonilux-accept-cookie-btn');
+        var modal = document.getElementById('jonilux-cookie-modal');
+        var btnAccept = document.getElementById('jonilux-accept-cookie-btn');
+        var btnModalAcceptAll = document.getElementById('jonilux-modal-accept-all-btn');
         var btnSave = document.getElementById('jonilux-save-cookie-btn');
         var btnEss = document.getElementById('jonilux-essential-cookie-btn');
-        var btnReopen = document.getElementById('jonilux-cookie-reopen');
+        var btnOpenNotice = document.getElementById('jonilux-open-cookie-notice');
+        var btnCloseModal = document.getElementById('jonilux-cookie-modal-close');
         var chkGa4 = document.getElementById('jonilux-cookie-ga4');
-        if (!banner || !btnAll) return;
+        if (!banner || !btnAccept) return;
 
         function setCookie(name, value, days) {
             var d = new Date();
@@ -273,22 +303,51 @@ function jonilux_render_cookie_privacy_banner() {
             document.cookie = name + "=" + encodeURIComponent(value) + ";expires=" + d.toUTCString() + ";path=/;SameSite=Lax";
         }
 
+        function getCookie(name) {
+            var match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+            return match ? decodeURIComponent(match[2]) : null;
+        }
+
+        function applyConsentToGA4(mode) {
+            var granted = (mode === 'all');
+            if (typeof window.gtag === 'function') {
+                window.gtag('consent', 'update', {
+                    'analytics_storage': granted ? 'granted' : 'denied',
+                    'ad_storage': granted ? 'granted' : 'denied'
+                });
+            }
+            if (typeof window.joniluxTrackEvent === 'function' && granted) {
+                window.joniluxTrackEvent('cookie_consent_updated', { consent_level: mode });
+            }
+        }
+
         function saveConsent(mode) {
             localStorage.setItem('jonilux_cookie_consent', mode);
             setCookie('jonilux_cookie_consent', mode, 180);
+            setCookie('jonilux_analytics_enabled', mode === 'all' ? '1' : '0', 180);
+            applyConsentToGA4(mode);
             banner.style.display = 'none';
+            if (modal) modal.style.display = 'none';
         }
 
-        if (!localStorage.getItem('jonilux_cookie_consent')) {
-            setTimeout(function() {
-                banner.style.display = 'block';
-            }, 600);
+        var currentConsent = getCookie('jonilux_cookie_consent') || localStorage.getItem('jonilux_cookie_consent');
+        if (!currentConsent) {
+            banner.style.display = 'block';
+        } else {
+            if (chkGa4) chkGa4.checked = (currentConsent === 'all');
+            applyConsentToGA4(currentConsent);
         }
 
-        btnAll.addEventListener('click', function() {
+        btnAccept.addEventListener('click', function() {
             if (chkGa4) chkGa4.checked = true;
             saveConsent('all');
         });
+        if (btnModalAcceptAll) {
+            btnModalAcceptAll.addEventListener('click', function() {
+                if (chkGa4) chkGa4.checked = true;
+                saveConsent('all');
+            });
+        }
         if (btnSave) {
             btnSave.addEventListener('click', function() {
                 saveConsent(chkGa4 && chkGa4.checked ? 'all' : 'essential');
@@ -300,11 +359,31 @@ function jonilux_render_cookie_privacy_banner() {
                 saveConsent('essential');
             });
         }
-        if (btnReopen) {
-            btnReopen.addEventListener('click', function() {
-                banner.style.display = 'block';
+        if (btnOpenNotice) {
+            btnOpenNotice.addEventListener('click', function(e) {
+                e.preventDefault();
+                if (modal) modal.style.display = 'flex';
             });
         }
+        if (btnCloseModal) {
+            btnCloseModal.addEventListener('click', function() {
+                if (modal) modal.style.display = 'none';
+            });
+        }
+        if (modal) {
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal) modal.style.display = 'none';
+            });
+        }
+
+        // Permitir reabrir el Aviso de Cookies desde cualquier enlace del footer que apunte a #aviso-cookies o politica de cookies
+        document.addEventListener('click', function(e) {
+            var a = e.target.closest('a[href="#aviso-cookies"], .jx-open-cookies');
+            if (a) {
+                e.preventDefault();
+                if (modal) modal.style.display = 'flex';
+            }
+        });
     })();
     </script>
     <?php

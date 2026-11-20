@@ -73,6 +73,7 @@ $libro = home_url("/libro-de-reclamaciones/");
                     <li><a href="<?php echo esc_url($terminos); ?>">Términos y Condiciones</a></li>
                     <li><a href="<?php echo esc_url($envios); ?>">Envíos y Logística Inversa</a></li>
                     <li><a href="<?php echo esc_url($privacidad); ?>">Política de Privacidad</a></li>
+                    <li><a href="#aviso-cookies" class="jx-open-cookies">Aviso y Preferencias de Cookies</a></li>
                 </ul>
 
                 <!-- Libro de Reclamaciones INDECOPI Badge -->
