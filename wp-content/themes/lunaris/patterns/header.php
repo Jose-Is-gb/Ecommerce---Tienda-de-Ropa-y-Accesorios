@@ -17,12 +17,12 @@ $nav = [
     ['Novedades', add_query_arg('orderby', 'date', $shop)],
 ];
 ?>
-<!-- wp:group {"className":"jx-header","layout":{"type":"default"}} -->
-<div class="wp-block-group jx-header">
-<!-- wp:group {"className":"jx-header-main","layout":{"type":"default"}} -->
-<div class="wp-block-group jx-header-main">
-<!-- wp:group {"className":"jx-header-inner","layout":{"type":"default"}} -->
-<div class="wp-block-group jx-header-inner">
+<!-- wp:group {"className":"jx-header","style":{"spacing":{"blockGap":"0","margin":{"top":"0","bottom":"0"}}},"layout":{"type":"default"}} -->
+<div class="wp-block-group jx-header" style="margin-top:0;margin-bottom:0">
+<!-- wp:group {"className":"jx-header-main","style":{"spacing":{"blockGap":"0","margin":{"top":"0","bottom":"0"}}},"layout":{"type":"default"}} -->
+<div class="wp-block-group jx-header-main" style="margin-top:0;margin-bottom:0">
+<!-- wp:group {"className":"jx-header-inner","style":{"spacing":{"blockGap":"0","margin":{"top":"0","bottom":"0"}}},"layout":{"type":"default"}} -->
+<div class="wp-block-group jx-header-inner" style="margin-top:0;margin-bottom:0">
 <!-- wp:html -->
 <a class="jx-logo" href="<?php echo esc_url(home_url('/')); ?>" rel="home" aria-label="JONILUX, ir al inicio">JONILUX</a>
 <form class="jx-search" role="search" method="get" action="<?php echo esc_url(home_url('/')); ?>">

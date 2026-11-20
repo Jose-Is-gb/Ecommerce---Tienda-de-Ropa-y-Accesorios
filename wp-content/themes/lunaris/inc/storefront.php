@@ -133,25 +133,21 @@ function jx_render_product_card($product) {
     $price_text = html_entity_decode(wp_strip_all_tags($price_html), ENT_QUOTES, 'UTF-8');
     $image_id = $product->get_image_id();
     $thumb = $image_id ? (string) wp_get_attachment_image_url($image_id, 'medium') : '';
+    $large = $image_id ? (string) wp_get_attachment_image_url($image_id, 'large') : '';
+    if ($large === '') {
+        $large = $thumb !== '' ? $thumb : (string) wc_placeholder_img_src();
+    }
     $label = jx_product_category_label($product);
+    if ($label === '') {
+        $label = 'COLECCIÓN URBANA';
+    }
     $rating = (float) $product->get_average_rating();
     $rating_count = (int) $product->get_rating_count();
     ?>
     <article class="jx-card">
         <div class="jx-card-media">
-            <a href="<?php echo esc_url($url); ?>" tabindex="-1" aria-hidden="true">
-                <?php
-                if ($image_id) {
-                    echo wp_get_attachment_image($image_id, 'large', false, [
-                        'class' => 'jx-card-img',
-                        'alt' => $title,
-                        'loading' => 'lazy',
-                        'sizes' => '(min-width: 1100px) 18vw, (min-width: 700px) 28vw, 46vw',
-                    ]);
-                } else {
-                    echo '<img class="jx-card-img" src="' . esc_url(wc_placeholder_img_src()) . '" alt="' . esc_attr($title) . '" loading="lazy">';
-                }
-                ?>
+            <a class="jx-card-media-link" href="<?php echo esc_url($url); ?>" tabindex="-1" aria-hidden="true">
+                <img class="jx-card-img" src="<?php echo esc_url($large); ?>" alt="<?php echo esc_attr($title); ?>" loading="lazy">
             </a>
             <button type="button" class="jonilux-card-wishlist-btn jx-wish"
                     data-id="<?php echo (int) $pid; ?>"
@@ -164,14 +160,16 @@ function jx_render_product_card($product) {
             </button>
         </div>
         <div class="jx-card-body">
-            <?php if ($label !== '') : ?><span class="jx-card-cat"><?php echo esc_html($label); ?></span><?php endif; ?>
+            <span class="jx-card-cat"><?php echo esc_html($label); ?></span>
             <h3 class="jx-card-title"><a href="<?php echo esc_url($url); ?>"><?php echo esc_html($title); ?></a></h3>
-            <?php if ($rating_count > 0) : ?>
-                <div class="jx-card-rating">
+            <div class="jx-card-rating">
+                <?php if ($rating_count > 0) : ?>
                     <span class="jx-stars" style="--r: <?php echo esc_attr(number_format($rating, 1, '.', '')); ?>;" role="img" aria-label="<?php echo esc_attr('Valoración ' . number_format_i18n($rating, 1) . ' de 5'); ?>"></span>
                     <span>(<?php echo (int) $rating_count; ?>)</span>
-                </div>
-            <?php endif; ?>
+                <?php else : ?>
+                    <span class="jx-card-stock-note">Envío 24-48h · En stock</span>
+                <?php endif; ?>
+            </div>
             <div class="jx-card-price"><?php echo wp_kses_post($price_html); ?></div>
             <a class="jx-card-btn" href="<?php echo esc_url($url); ?>">Ver producto</a>
         </div>
