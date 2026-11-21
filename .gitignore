@@ -5,6 +5,7 @@ wp-content/uploads/*/wc-logs/
 wp-config.php
 .local-backups/
 /.codex/
+/jonilux.mrmendz.com.pe/
 
 # Excluir respaldos salvo la exportacion completa autorizada para este repositorio.
 *.sql
