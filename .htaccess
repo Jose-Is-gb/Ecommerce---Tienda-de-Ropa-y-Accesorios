@@ -1,10 +1,11 @@
-# Respaldos y herramientas locales nunca deben ser descargables por HTTP.
-<FilesMatch "(?i)\.(sql(?:\.gz)?|bak|ini|log|ps1)$">
+# Respaldos, archivos de trabajo y listados de directorio nunca deben ser accesibles por HTTP.
+Options -Indexes
+<FilesMatch "(?i)(?:\.(sql(?:\.gz)?|bak|ini|log|ps1|md)|^extracted_eva_text\.txt)$">
     Require all denied
 </FilesMatch>
 <IfModule mod_rewrite.c>
 RewriteEngine On
-RewriteRule ^(\.git|\.codex|\.local-backups|scripts|tests)(/|$) - [F,L,NC]
+RewriteRule ^(\.git|\.codex|\.local-backups|scripts|tests|database)(/|$) - [F,L,NC]
 RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
 RewriteBase /wordpress/
 RewriteRule ^index\.php$ - [L]
