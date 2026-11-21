@@ -93,7 +93,7 @@ function jonilux_render_syllabus_extensions_footer() {
     </div>
 
     <style id="jonilux-extensions-css">
-        .jx-vip-club { width: min(1400px, calc(100% - 56px)); margin: 32px auto 28px; background: linear-gradient(135deg, #172a22 0%, #243c2e 100%); color: #fff; border-radius: 16px; padding: 32px 36px; box-sizing: border-box; box-shadow: 0 12px 32px rgba(23,42,34,0.12); font-family: var(--lunaris-font-body, Arial, sans-serif); }
+        .jx-vip-club { display: block !important; width: min(1400px, calc(100% - 56px)); margin: 24px auto 40px !important; background: linear-gradient(135deg, #172a22 0%, #243c2e 100%); color: #fff; border-radius: 16px; padding: 32px 36px; box-sizing: border-box; box-shadow: 0 12px 32px rgba(23,42,34,0.12); font-family: var(--lunaris-font-body, Arial, sans-serif); }
         .jx-vip-inner { display: grid; grid-template-columns: 1.2fr 1fr; gap: 28px; align-items: center; }
         .jx-vip-eyebrow { display: block; font-size: 10px; font-weight: 800; letter-spacing: .16em; color: #c8d4af; text-transform: uppercase; margin-bottom: 6px; }
         .jx-vip-copy h2 { margin: 0 0 8px; font-size: clamp(20px, 2.4vw, 28px); font-weight: 800; color: #fff; letter-spacing: -.01em; }

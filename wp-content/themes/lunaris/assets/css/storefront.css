@@ -72,7 +72,7 @@ body.admin-bar .wp-block-template-part:has(> .jx-header) { top: 32px; }
 .jx-catbar-note { margin: 0 0 0 auto; align-self: center; font: 500 12px var(--lunaris-font-body); color: #c4d0bc; }
 
 /* ---------- Estructura de portada (espaciado amplio y respirable) ---------- */
-.jx-home { padding-bottom: 64px; }
+.jx-home { padding-bottom: 8px; }
 .jx-hero, .jx-benefits, .jx-panel, .jx-banners { width: min(var(--jx-max), calc(100% - 56px)); margin: 24px auto 0 !important; box-sizing: border-box; }
 .jx-panel { background: #fff; border: 1px solid var(--jx-line); border-radius: 16px; padding: 28px 30px 30px; box-shadow: 0 2px 10px rgba(23, 42, 34, .025); }
 .jx-eyebrow { margin: 0; font: 700 11px/1.4 var(--lunaris-font-body); letter-spacing: .16em; text-transform: uppercase; color: var(--jx-lime); }
